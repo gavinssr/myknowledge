@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le-Renting 分析报告预览</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f4ef;
+      --surface: #ffffff;
+      --surface-muted: #f1eee7;
+      --ink: #202124;
+      --muted: #6a645b;
+      --line: #dad4c8;
+      --accent: #1f6f68;
+      --accent-strong: #174f4a;
+      --blue: #285f9f;
+      --shadow: 0 14px 40px rgba(41, 35, 25, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1600px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .sidebar {
+      min-height: calc(100vh - 44px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel,
+    .preview {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .masthead {
+      padding: 22px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.12;
+      font-weight: 780;
+    }
+
+    .intro {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .home-link {
+      margin-top: 18px;
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fbfaf7;
+      color: var(--accent-strong);
+      font-size: 13px;
+      font-weight: 760;
+      text-decoration: none;
+    }
+
+    .section-title {
+      margin: 0;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--surface-muted);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .report-list {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .report-item {
+      width: 100%;
+      min-height: 106px;
+      padding: 13px;
+      display: grid;
+      grid-template-columns: 78px minmax(0, 1fr);
+      gap: 13px;
+      border: 0;
+      background: var(--surface);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .report-item:hover,
+    .report-item:focus-visible {
+      outline: 0;
+      background: #fbfaf7;
+    }
+
+    .report-item.is-active {
+      background: #edf7f4;
+      box-shadow: inset 4px 0 0 var(--accent);
+    }
+
+    .thumb {
+      width: 78px;
+      height: 78px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #ece7dc;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .item-title {
+      display: block;
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 780;
+    }
+
+    .item-meta {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .preview {
+      min-width: 0;
+      min-height: calc(100vh - 44px);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .preview-bar {
+      min-height: 66px;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      background: #fbfaf7;
+    }
+
+    .preview-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 780;
+    }
+
+    .preview-path {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .open-link {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 760;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .open-link:hover,
+    .open-link:focus-visible,
+    .home-link:hover,
+    .home-link:focus-visible {
+      outline: 0;
+      border-color: var(--accent-strong);
+      background: var(--accent-strong);
+      color: #fff;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 760px;
+      border: 0;
+      background: #fff;
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        grid-template-columns: 1fr;
+        padding: 14px;
+      }
+
+      .sidebar,
+      .preview {
+        min-height: auto;
+      }
+
+      .preview {
+        height: min(780px, 78vh);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        padding: 10px;
+      }
+
+      .masthead {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .preview-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .open-link {
+        width: 100%;
+      }
+
+      .report-item {
+        grid-template-columns: 58px minmax(0, 1fr);
+        min-height: 90px;
+      }
+
+      .thumb {
+        width: 58px;
+        height: 58px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <aside class="sidebar" aria-label="Le-Renting 报告导航">
+      <header class="panel masthead">
+        <p class="eyebrow">Le-Renting</p>
+        <h1>租赁竞品分析报告</h1>
+        <p class="intro">三个报告共用一个独立预览入口，适合从 GitHub Pages 单独打开和切换。</p>
+        <a class="home-link" href="../index.html">返回知识库首页</a>
+      </header>
+
+      <section class="panel" aria-labelledby="reports-title">
+        <h2 class="section-title" id="reports-title">分析报告</h2>
+        <div class="report-list">
+          <button class="report-item is-active" type="button" data-title="租赁竞品流程横向分析报告" data-src="outputs/comparison-rental/report.html" data-key="comparison">
+            <span class="thumb"><img src="outputs/comparison-rental/report_preview.png" alt=""></span>
+            <span>
+              <span class="item-title">租赁竞品流程横向分析</span>
+              <span class="item-meta">人人租、芝麻租赁、租租乐的关键流程横向对比</span>
+            </span>
+          </button>
+          <button class="report-item" type="button" data-title="人人租竞品流程分析报告" data-src="outputs/renrenzu-rental/report.html" data-key="renrenzu">
+            <span class="thumb"><img src="outputs/renrenzu-rental/screen_contact_sheet.png" alt=""></span>
+            <span>
+              <span class="item-title">人人租竞品流程分析</span>
+              <span class="item-meta">人人租从浏览、下单到账单和归还的流程拆解</span>
+            </span>
+          </button>
+          <button class="report-item" type="button" data-title="芝麻租赁竞品流程分析报告" data-src="outputs/zhima-rental/report.html" data-key="zhima">
+            <span class="thumb"><img src="outputs/zhima-rental/canvas_preview.png" alt=""></span>
+            <span>
+              <span class="item-title">芝麻租赁竞品流程分析</span>
+              <span class="item-meta">芝麻租赁路径、风险点和可借鉴模式</span>
+            </span>
+          </button>
+        </div>
+      </section>
+    </aside>
+
+    <section class="preview" aria-label="报告预览">
+      <div class="preview-bar">
+        <div>
+          <h2 class="preview-title" id="previewTitle">租赁竞品流程横向分析报告</h2>
+          <p class="preview-path" id="previewPath">outputs/comparison-rental/report.html</p>
+        </div>
+        <a class="open-link" id="openLink" href="outputs/comparison-rental/report.html" target="_blank" rel="noreferrer">打开当前报告</a>
+      </div>
+      <iframe id="previewFrame" title="Le-Renting 报告预览" src="outputs/comparison-rental/report.html"></iframe>
+    </section>
+  </main>
+
+  <script>
+    const reports = Array.from(document.querySelectorAll(".report-item"));
+    const frame = document.getElementById("previewFrame");
+    const title = document.getElementById("previewTitle");
+    const path = document.getElementById("previewPath");
+    const openLink = document.getElementById("openLink");
+
+    function activate(item, shouldUpdateHash = true) {
+      const nextTitle = item.dataset.title;
+      const nextSrc = item.dataset.src;
+
+      reports.forEach((entry) => {
+        entry.classList.toggle("is-active", entry === item);
+      });
+
+      title.textContent = nextTitle;
+      path.textContent = nextSrc;
+      frame.src = nextSrc;
+      openLink.href = nextSrc;
+
+      if (shouldUpdateHash) {
+        history.replaceState(null, "", "#" + item.dataset.key);
+      }
+    }
+
+    function activateFromHash() {
+      const key = location.hash.replace("#", "");
+      const item = reports.find((entry) => entry.dataset.key === key);
+      if (item) {
+        activate(item, false);
+      }
+    }
+
+    reports.forEach((item) => {
+      item.addEventListener("click", () => activate(item));
+    });
+
+    window.addEventListener("hashchange", activateFromHash);
+    activateFromHash();
+  </script>
+</body>
+</html>

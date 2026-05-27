@@ -108,6 +108,45 @@
       font-weight: 760;
     }
 
+    .section-heading {
+      padding: 11px 12px 11px 14px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      background: var(--surface-muted);
+    }
+
+    .section-heading .section-title {
+      padding: 0;
+      border-bottom: 0;
+      background: transparent;
+    }
+
+    .section-open-link {
+      min-height: 30px;
+      padding: 0 10px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      color: var(--accent-strong);
+      font-size: 12px;
+      font-weight: 760;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .section-open-link:hover,
+    .section-open-link:focus-visible {
+      outline: 0;
+      background: var(--accent);
+      color: #fff;
+    }
+
     .nav-list {
       display: grid;
       gap: 1px;
@@ -308,6 +347,14 @@
         width: 100%;
       }
 
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .section-open-link {
+        width: 100%;
+      }
+
       .nav-item {
         grid-template-columns: 46px minmax(0, 1fr);
       }
@@ -363,7 +410,10 @@
       </section>
 
       <section class="nav-section" aria-labelledby="renting-title">
-        <h2 class="section-title" id="renting-title">Le-Renting 预览项目</h2>
+        <div class="section-heading">
+          <h2 class="section-title" id="renting-title">Le-Renting 预览项目</h2>
+          <a class="section-open-link" href="Le-Renting/index.html" target="_blank" rel="noreferrer">独立窗口打开</a>
+        </div>
         <div class="nav-list">
           <button class="nav-item" type="button" data-title="租赁竞品流程横向分析报告" data-src="Le-Renting/outputs/comparison-rental/report.html">
             <span class="thumb"><img src="Le-Renting/outputs/comparison-rental/report_preview.png" alt=""></span>
