@@ -162,6 +162,33 @@
       line-height: 1.45;
     }
 
+    .sensitive-button {
+      width: fit-content;
+      min-height: 28px;
+      margin-top: 10px;
+      padding: 4px 11px;
+      border: 1px solid #a69f94;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: #a69f94;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 760;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .sensitive-button:hover,
+    .sensitive-button:focus-visible {
+      outline: 0;
+      border-color: #8f887e;
+      color: #8f887e;
+      background: transparent;
+    }
+
     .preview {
       min-width: 0;
       min-height: calc(100vh - 44px);
@@ -289,20 +316,14 @@
       <section class="panel" aria-labelledby="reports-title">
         <h2 class="section-title" id="reports-title">分析报告</h2>
         <div class="report-list">
-          <button class="report-item is-active" type="button" data-title="租赁竞品流程横向分析报告" data-src="outputs/comparison-rental/report.html" data-key="comparison">
-            <span class="thumb"><img src="outputs/comparison-rental/report_preview.png" alt=""></span>
-            <span>
-              <span class="item-title">租赁竞品流程横向分析</span>
-              <span class="item-meta">人人租、芝麻租赁、租租乐的关键流程横向对比</span>
-            </span>
-          </button>
-          <button class="report-item" type="button" data-title="租赁竞品流程横向分析报告（剔除租租乐版）" data-src="outputs/comparison-rental-no-zuzule/report.html" data-key="comparison-no-zuzule">
+          <div class="report-item is-active" role="button" tabindex="0" data-title="租赁竞品流程横向分析报告（剔除租租乐版）" data-src="outputs/comparison-rental-no-zuzule/report.html" data-key="comparison-no-zuzule">
             <span class="thumb"><img src="outputs/comparison-rental-no-zuzule/report_preview.svg" alt=""></span>
             <span>
-              <span class="item-title">租赁竞品横向分析（双产品）</span>
+              <span class="item-title">双产品报告</span>
               <span class="item-meta">人人租、芝麻租赁的关键流程横向对比</span>
+              <button class="sensitive-button" type="button" data-sensitive-report="outputs/comparison-rental/report.html">敏感代码 <span aria-hidden="true">→</span></button>
             </span>
-          </button>
+          </div>
           <button class="report-item" type="button" data-title="人人租竞品流程分析报告" data-src="outputs/renrenzu-rental/report.html" data-key="renrenzu">
             <span class="thumb"><img src="outputs/renrenzu-rental/screen_contact_sheet.png" alt=""></span>
             <span>
@@ -324,12 +345,12 @@
     <section class="preview" aria-label="报告预览">
       <div class="preview-bar">
         <div>
-          <h2 class="preview-title" id="previewTitle">租赁竞品流程横向分析报告</h2>
-          <p class="preview-path" id="previewPath">outputs/comparison-rental/report.html</p>
+          <h2 class="preview-title" id="previewTitle">租赁竞品流程横向分析报告（剔除租租乐版）</h2>
+          <p class="preview-path" id="previewPath">outputs/comparison-rental-no-zuzule/report.html</p>
         </div>
-        <a class="open-link" id="openLink" href="outputs/comparison-rental/report.html" target="_blank" rel="noreferrer">打开当前报告</a>
+        <a class="open-link" id="openLink" href="outputs/comparison-rental-no-zuzule/report.html" target="_blank" rel="noreferrer">打开当前报告</a>
       </div>
-      <iframe id="previewFrame" title="Le-Renting 报告预览" src="outputs/comparison-rental/report.html"></iframe>
+      <iframe id="previewFrame" title="Le-Renting 报告预览" src="outputs/comparison-rental-no-zuzule/report.html"></iframe>
     </section>
   </main>
 
@@ -339,6 +360,8 @@
     const title = document.getElementById("previewTitle");
     const path = document.getElementById("previewPath");
     const openLink = document.getElementById("openLink");
+    const sensitiveButtons = Array.from(document.querySelectorAll("[data-sensitive-report]"));
+    const sensitivePassword = "854341188";
 
     function activate(item, shouldUpdateHash = true) {
       const nextTitle = item.dataset.title;
@@ -367,7 +390,40 @@
     }
 
     reports.forEach((item) => {
-      item.addEventListener("click", () => activate(item));
+      item.addEventListener("click", (event) => {
+        if (event.target.closest("[data-sensitive-report]")) {
+          return;
+        }
+
+        activate(item);
+      });
+
+      item.addEventListener("keydown", (event) => {
+        if (item.tagName === "BUTTON" || event.target.closest("[data-sensitive-report]")) {
+          return;
+        }
+
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activate(item);
+        }
+      });
+    });
+
+    sensitiveButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const enteredPassword = window.prompt("请输入访问密码");
+        if (enteredPassword === sensitivePassword) {
+          window.open(button.dataset.sensitiveReport, "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (enteredPassword !== null) {
+          window.alert("密码不正确，无法打开。");
+        }
+      });
     });
 
     window.addEventListener("hashchange", activateFromHash);
