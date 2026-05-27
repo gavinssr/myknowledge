@@ -125,26 +125,31 @@
     }
 
     .section-open-link {
-      min-height: 30px;
-      padding: 0 10px;
-      border: 1px solid var(--accent);
-      border-radius: 6px;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--surface);
+      background: transparent;
       color: var(--accent-strong);
-      font-size: 12px;
-      font-weight: 760;
       text-decoration: none;
-      white-space: nowrap;
     }
 
     .section-open-link:hover,
     .section-open-link:focus-visible {
       outline: 0;
-      background: var(--accent);
-      color: #fff;
+      background: rgba(31, 111, 104, 0.08);
+      color: var(--accent);
+    }
+
+    .section-open-link svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      stroke: currentColor;
     }
 
     .nav-list {
@@ -412,7 +417,11 @@
       <section class="nav-section" aria-labelledby="renting-title">
         <div class="section-heading">
           <h2 class="section-title" id="renting-title">Le-Renting 预览项目</h2>
-          <a class="section-open-link" href="Le-Renting/index.html" target="_blank" rel="noreferrer">独立窗口打开</a>
+          <a class="section-open-link" href="Le-Renting/index.html" target="_blank" rel="noreferrer" aria-label="独立窗口打开 Le-Renting">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </section>
     </aside>
