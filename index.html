@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Knowledge Index</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f4ef;
+      --surface: #ffffff;
+      --surface-muted: #f1eee7;
+      --ink: #202124;
+      --muted: #6a645b;
+      --line: #dad4c8;
+      --accent: #1f6f68;
+      --accent-strong: #174f4a;
+      --blue: #285f9f;
+      --red: #a23d3d;
+      --green: #28724d;
+      --shadow: 0 14px 40px rgba(41, 35, 25, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1560px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .sidebar {
+      min-height: calc(100vh - 44px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .masthead {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.12;
+      font-weight: 760;
+    }
+
+    .intro {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .nav-section {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      margin: 0;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--surface-muted);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .nav-item {
+      width: 100%;
+      min-height: 86px;
+      padding: 13px;
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 12px;
+      border: 0;
+      background: var(--surface);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .nav-item:hover,
+    .nav-item:focus-visible {
+      outline: 0;
+      background: #fbfaf7;
+    }
+
+    .nav-item.is-active {
+      background: #edf7f4;
+      box-shadow: inset 4px 0 0 var(--accent);
+    }
+
+    .thumb {
+      width: 54px;
+      height: 60px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: #ece7dc;
+      color: var(--accent-strong);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumb.doc {
+      background: #e8f0ee;
+    }
+
+    .thumb.devtools {
+      background: #eef0d8;
+      color: #716a20;
+    }
+
+    .thumb.gstack {
+      background: #e7edf7;
+      color: var(--blue);
+    }
+
+    .item-title {
+      display: block;
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .item-meta {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .preview {
+      min-width: 0;
+      min-height: calc(100vh - 44px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .preview-bar {
+      min-height: 66px;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      background: #fbfaf7;
+    }
+
+    .preview-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 780;
+    }
+
+    .preview-path {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .open-link {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 760;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .open-link:hover,
+    .open-link:focus-visible {
+      background: var(--accent-strong);
+      outline: 0;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 720px;
+      border: 0;
+      background: #fff;
+    }
+
+    .status-row {
+      padding: 10px 14px 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        grid-template-columns: 1fr;
+        padding: 14px;
+      }
+
+      .sidebar,
+      .preview {
+        min-height: auto;
+      }
+
+      .preview {
+        height: min(760px, 78vh);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        padding: 10px;
+      }
+
+      .masthead {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .preview-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .open-link {
+        width: 100%;
+      }
+
+      .nav-item {
+        grid-template-columns: 46px minmax(0, 1fr);
+      }
+
+      .thumb {
+        width: 46px;
+        height: 54px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <aside class="sidebar" aria-label="知识库导航">
+      <header class="masthead">
+        <p class="eyebrow">My Knowledge</p>
+        <h1>知识库预览索引</h1>
+        <p class="intro">选择左侧条目，在右侧切换预览；需要完整页面时，用新窗口打开。</p>
+      </header>
+
+      <section class="nav-section" aria-labelledby="docs-title">
+        <h2 class="section-title" id="docs-title">独立 HTML 文档</h2>
+        <div class="nav-list">
+          <button class="nav-item is-active" type="button" data-title="开源项目贡献指南" data-src="opensource-contribution-guide.html">
+            <span class="thumb doc">OS</span>
+            <span>
+              <span class="item-title">开源项目贡献指南</span>
+              <span class="item-meta">无构建步骤型前端项目的贡献流程</span>
+            </span>
+          </button>
+          <button class="nav-item" type="button" data-title="DevTools CSS 协作工作流" data-src="DevTools-CSS协作工作流.html">
+            <span class="thumb devtools">CSS</span>
+            <span>
+              <span class="item-title">DevTools CSS 协作工作流</span>
+              <span class="item-meta">浏览器调参和 AI 工程约束协作</span>
+            </span>
+          </button>
+          <button class="nav-item" type="button" data-title="GStack → Hermes 技能手册" data-src="gstack-hermes-guide.html">
+            <span class="thumb gstack">GH</span>
+            <span>
+              <span class="item-title">GStack → Hermes 技能手册</span>
+              <span class="item-meta">从审查、调试到发布的技能索引</span>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <section class="nav-section" aria-labelledby="renting-title">
+        <h2 class="section-title" id="renting-title">Le-Renting 预览项目</h2>
+        <div class="nav-list">
+          <button class="nav-item" type="button" data-title="租赁竞品流程横向分析报告" data-src="Le-Renting/outputs/comparison-rental/report.html">
+            <span class="thumb"><img src="Le-Renting/outputs/comparison-rental/report_preview.png" alt=""></span>
+            <span>
+              <span class="item-title">租赁竞品流程横向分析</span>
+              <span class="item-meta">三条租赁流程的横向对比报告</span>
+            </span>
+          </button>
+          <button class="nav-item" type="button" data-title="人人租竞品流程分析报告" data-src="Le-Renting/outputs/renrenzu-rental/report.html">
+            <span class="thumb"><img src="Le-Renting/outputs/renrenzu-rental/screen_contact_sheet.png" alt=""></span>
+            <span>
+              <span class="item-title">人人租竞品流程分析</span>
+              <span class="item-meta">人人租路径拆解、关键发现与风险建议</span>
+            </span>
+          </button>
+          <button class="nav-item" type="button" data-title="芝麻租赁竞品流程分析报告" data-src="Le-Renting/outputs/zhima-rental/report.html">
+            <span class="thumb"><img src="Le-Renting/outputs/zhima-rental/canvas_preview.png" alt=""></span>
+            <span>
+              <span class="item-title">芝麻租赁竞品流程分析</span>
+              <span class="item-meta">芝麻租赁路径拆解、关键发现与风险建议</span>
+            </span>
+          </button>
+        </div>
+      </section>
+    </aside>
+
+    <section class="preview" aria-label="页面预览">
+      <div class="preview-bar">
+        <div>
+          <h2 class="preview-title" id="previewTitle">开源项目贡献指南</h2>
+          <p class="preview-path" id="previewPath">opensource-contribution-guide.html</p>
+        </div>
+        <a class="open-link" id="openLink" href="opensource-contribution-guide.html" target="_blank" rel="noreferrer">新窗口打开</a>
+      </div>
+      <iframe id="previewFrame" title="知识库页面预览" src="opensource-contribution-guide.html"></iframe>
+    </section>
+  </main>
+
+  <script>
+    const items = Array.from(document.querySelectorAll(".nav-item"));
+    const frame = document.getElementById("previewFrame");
+    const title = document.getElementById("previewTitle");
+    const path = document.getElementById("previewPath");
+    const openLink = document.getElementById("openLink");
+
+    function activate(item) {
+      const nextTitle = item.dataset.title;
+      const nextSrc = item.dataset.src;
+
+      items.forEach((entry) => {
+        entry.classList.toggle("is-active", entry === item);
+      });
+
+      title.textContent = nextTitle;
+      path.textContent = nextSrc;
+      frame.src = nextSrc;
+      openLink.href = nextSrc;
+    }
+
+    items.forEach((item) => {
+      item.addEventListener("click", () => activate(item));
+    });
+  </script>
+</body>
+</html>
