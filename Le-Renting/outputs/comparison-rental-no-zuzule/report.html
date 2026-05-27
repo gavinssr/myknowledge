@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>租赁竞品流程横向分析报告（剔除租租乐版）</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #687385;
+      --line: #dfe5ee;
+      --soft: #f5f7fa;
+      --paper: #ffffff;
+      --teal: #0f9f9a;
+      --blue: #3366d6;
+      --amber: #a86a09;
+      --shadow: 0 18px 48px rgba(23, 32, 51, 0.10);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #eef2f6;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #172033 0%, #20314d 58%, #134d52 100%);
+      color: #fff;
+      padding: 44px 32px 34px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-inner,
+    main,
+    .nav-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 980px;
+      font-size: 34px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero-summary {
+      margin: 18px 0 0;
+      max-width: 980px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 16px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      padding: 10px 32px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .nav a {
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: #344155;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      border-color: var(--line);
+      background: var(--soft);
+    }
+
+    main {
+      padding: 28px 32px 64px;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-body {
+      padding: 24px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    .lead {
+      color: #38465b;
+      font-size: 16px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .summary-card,
+    .checklist-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: #fbfcfe;
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .scenario-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+
+    .scenario-index {
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .scenario-header p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .scenario-target {
+      flex: 0 0 310px;
+      border-left: 4px solid var(--teal);
+      padding: 10px 12px;
+      background: #eefaf8;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #174a46;
+    }
+
+    .comparison-wrap {
+      overflow-x: auto;
+      padding: 18px 18px 4px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
+      gap: 16px;
+      min-width: 680px;
+    }
+
+    .product-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .product-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfe;
+    }
+
+    .product-name {
+      font-weight: 700;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #344155;
+      background: #edf1f7;
+      border: 1px solid #dce3ee;
+      white-space: nowrap;
+    }
+
+    .tag.good {
+      color: #145f42;
+      background: #eaf7f0;
+      border-color: #ccebdc;
+    }
+
+    .tag.warn {
+      color: #7a4a04;
+      background: #fff4dc;
+      border-color: #efd59b;
+    }
+
+    .phone-frame {
+      max-height: 700px;
+      overflow: auto;
+      background: #10151f;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .phone-frame img {
+      display: block;
+      width: min(100%, 360px);
+      height: auto;
+      margin: 0 auto;
+      border-radius: 2px;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
+    }
+
+    .phone-frame img + img {
+      margin-top: 14px;
+    }
+
+    .frame-note {
+      margin: 10px auto 0;
+      max-width: 360px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .product-analysis {
+      padding: 14px;
+    }
+
+    .product-analysis p {
+      margin: 0 0 10px;
+      color: #3a485c;
+      font-size: 14px;
+    }
+
+    .product-analysis p:last-child {
+      margin-bottom: 0;
+    }
+
+    .compare-table {
+      width: calc(100% - 36px);
+      margin: 18px;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      vertical-align: top;
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .compare-table th {
+      background: #f5f7fa;
+      color: #344155;
+      font-weight: 700;
+    }
+
+    .scenario-advice {
+      margin: 0 18px 20px;
+      padding: 16px;
+      border: 1px solid #cfe5e2;
+      border-radius: var(--radius);
+      background: #f0faf8;
+    }
+
+    .scenario-advice strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #145a55;
+    }
+
+    .scenario-advice ul,
+    .checklist ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .scenario-advice li,
+    .checklist li {
+      margin: 6px 0;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .artifact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .artifact-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #344155;
+      font-size: 13px;
+    }
+
+    .artifact-links a:hover {
+      border-color: #b7c3d4;
+      background: #f5f7fa;
+    }
+
+    @media (max-width: 880px) {
+      .hero,
+      main {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .summary-grid,
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .scenario-header {
+        display: block;
+      }
+
+      .scenario-target {
+        margin-top: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Competitive Flow Analysis · 2026-05-27</p>
+      <h1>租赁竞品流程横向分析报告（剔除租租乐版）</h1>
+      <p class="hero-summary">基于原横向报告，仅保留 Renrenzu 与 Zhima Leasing 两个产品，在同一租赁场景下比较流程组织、信任表达、费用呈现和状态反馈。</p>
+      <div class="meta-row">
+        <span class="meta-pill">输入：竞品对比-260526.pdf</span>
+        <span class="meta-pill">场景：5 个</span>
+        <span class="meta-pill">产品：2 个并排比较</span>
+        <span class="meta-pill">基准：原横向报告</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="报告导航">
+    <div class="nav-inner">
+      <a href="#overview">总览</a>
+      <a href="#detail">商品详情页</a>
+      <a href="#first-screen">商详页一屏</a>
+      <a href="#spec">规格页</a>
+      <a href="#order">订单详情页</a>
+      <a href="#bill">账单详情页</a>
+      <a href="#actions">设计机会</a>
+      <a href="#appendix">附录</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="overview" class="panel">
+      <div class="panel-body">
+        <h2>执行结论</h2>
+        <p class="lead">Renrenzu 代表“把风险和规则全部说清楚”的方向。平台担保、协议、押金、违约、签收和售后责任更可见，适合高客单价、高纠纷风险的租赁业务；代价是阅读压力大，促销、规则和风险提示会同时争夺注意力。</p>
+        <p class="lead">Zhima Leasing 代表“把租赁变成轻决策任务”的方向。租赁周期、信用免押、预计送达、审核状态和分期账单组织得更像任务流；代价是复杂费用、押金边界和风险责任解释相对依赖后续页面。</p>
+        <div class="summary-grid">
+          <div class="summary-card">
+            <strong>Renrenzu 的优势</strong>
+            <p>规则完整、风险披露充分、平台担保感强，适合建立高风险交易信任。</p>
+          </div>
+          <div class="summary-card">
+            <strong>Zhima Leasing 的优势</strong>
+            <p>路径短、下一步明确、分期任务更清楚，适合降低租赁决策成本。</p>
+          </div>
+          <div class="summary-card">
+            <strong>组合方向</strong>
+            <p>关键风险前置摘要，复杂规则按需展开，让用户既能快速行动，也能看清责任边界。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="detail" class="panel">
+      <div class="scenario-header">
+        <div>
+          <div class="scenario-index">场景 01</div>
+          <h2>商品详情页</h2>
+          <p>用户第一次判断是否值得租。核心不是单纯展示商品，而是同时回答价格是否划算、平台是否可信、租赁责任是否可控。</p>
+        </div>
+        <div class="scenario-target">关键判断：详情页要承担租赁关系解释，但不能把所有规则默认堆满。</div>
+      </div>
+      <div class="comparison-wrap">
+        <div class="comparison-grid">
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Renrenzu</span>
+              <span class="tag good">规则最完整</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_001.png" alt="Renrenzu 商品详情页上半段">
+              <img src="screens/screen_016.png" alt="Renrenzu 商品详情页下半段">
+              <div class="frame-note">该竞品详情页较长，此处按上下两段连续阅读。</div>
+            </div>
+            <div class="product-analysis">
+              <p>平台担保、服务标准、隐私保障、发货签收、损坏赔偿、买断续租等规则非常充分。</p>
+              <p>代价是页面负担重，促销、规则和风险提示同时抢注意力。</p>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Zhima Leasing</span>
+              <span class="tag good">流程心智清楚</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_002.png" alt="Zhima Leasing 商品详情页">
+            </div>
+            <div class="product-analysis">
+              <p>通过租赁说明、租后方案、常见问题，把下单、发货、签收、续租、买断、归还串成连续流程。</p>
+              <p>相比 Renrenzu，它更像在帮助用户完成租赁任务，而不是要求用户读完规则。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>对比项</th>
+            <th>Renrenzu</th>
+            <th>Zhima Leasing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>首要感受</td>
+            <td>交易感、促销感、保障感很强。</td>
+            <td>租赁流程更清楚，像被引导完成一件事。</td>
+          </tr>
+          <tr>
+            <td>信任建设</td>
+            <td>规则大量出现，安全感强但阅读压力大。</td>
+            <td>用流程、租后方案、常见问题建立预期。</td>
+          </tr>
+          <tr>
+            <td>CTA 关系</td>
+            <td>CTA 强，但促销和规则都在争夺注意力。</td>
+            <td>CTA 与信用免押、预计送达关系较顺。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="scenario-advice">
+        <strong>可复用启发</strong>
+        <ul>
+          <li>首屏给价格、免押、预计送达和核心保障。</li>
+          <li>详情中段给租前、租中、租后三段式摘要。</li>
+          <li>复杂协议和违约规则放在可展开详情里。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="first-screen" class="panel">
+      <div class="scenario-header">
+        <div>
+          <div class="scenario-index">场景 02</div>
+          <h2>商详页一屏</h2>
+          <p>首屏决定用户是否愿意继续。这里最重要的是快速理解价格、租期、免押、商家可信度和下一步动作。</p>
+        </div>
+        <div class="scenario-target">关键判断：促销可以推动点击，但不能替代长期租赁责任的解释。</div>
+      </div>
+      <div class="comparison-wrap">
+        <div class="comparison-grid">
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Renrenzu</span>
+              <span class="tag warn">促销强刺激</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_005.png" alt="Renrenzu 商详页一屏">
+            </div>
+            <div class="product-analysis">
+              <p>首屏把券后价、首月立减、全租期立减等促销元素放得很强。</p>
+              <p>转化刺激明显，但用户需要先处理活动规则，再理解租赁方案。</p>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Zhima Leasing</span>
+              <span class="tag good">决策成本低</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_006.png" alt="Zhima Leasing 商详页一屏">
+            </div>
+            <div class="product-analysis">
+              <p>不同租期价格、信用免押、商家保证金、预计送达集中出现。</p>
+              <p>用户能很快判断是否继续，底部“去免押租”承接自然。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>对比项</th>
+            <th>Renrenzu</th>
+            <th>Zhima Leasing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>首屏主轴</td>
+            <td>活动优惠和低价刺激。</td>
+            <td>价格梯度 + 信用免押 + 商家信任。</td>
+          </tr>
+          <tr>
+            <td>信任表达</td>
+            <td>担保和补贴感强，但噪声大。</td>
+            <td>商家保证金、收藏/浏览、预计送达靠近 CTA。</td>
+          </tr>
+          <tr>
+            <td>行动预期</td>
+            <td>强化“领券下单”。</td>
+            <td>强化“信用免押后去租”。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="scenario-advice">
+        <strong>可复用启发</strong>
+        <ul>
+          <li>租赁首屏优先回答价格是否清楚、免押是否可信、商家是否可靠、下一步是否明确。</li>
+          <li>促销最好作为价格解释的一部分，而不是成为页面主轴。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="spec" class="panel">
+      <div class="scenario-header">
+        <div>
+          <div class="scenario-index">场景 03</div>
+          <h2>规格页</h2>
+          <p>规格页是从浏览进入承诺的界面。这里要确认商品、租期、地址、费用和协议，同时不要被押金或复杂规则吓退。</p>
+        </div>
+        <div class="scenario-target">关键判断：先完成配置，再解释承诺；配置路径要短，责任边界要能展开。</div>
+      </div>
+      <div class="comparison-wrap">
+        <div class="comparison-grid">
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Renrenzu</span>
+              <span class="tag good">规则暴露完整</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_008.png" alt="Renrenzu 规格页">
+            </div>
+            <div class="product-analysis">
+              <p>地址、优惠、首期租金、总租金、押金、租期、协议和刷脸验证都前置。</p>
+              <p>适合高风险确认，但规格选择容易被规则信息淹没。</p>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Zhima Leasing</span>
+              <span class="tag good">路径短</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_009.png" alt="Zhima Leasing 规格页">
+            </div>
+            <div class="product-analysis">
+              <p>底部面板承载价格、租期、地址、套餐、日期和确认按钮。</p>
+              <p>信息密度适中，适合快速完成配置，但复杂费用解释不够完整。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>对比项</th>
+            <th>Renrenzu</th>
+            <th>Zhima Leasing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>页面模型</td>
+            <td>准下单页，承载大量支付前确认。</td>
+            <td>底部规格面板，快速选择后确认。</td>
+          </tr>
+          <tr>
+            <td>费用透明度</td>
+            <td>首期、总租金、购买、押金说明都有。</td>
+            <td>展示日租、总租金、尾款等关键金额。</td>
+          </tr>
+          <tr>
+            <td>主要风险</td>
+            <td>信息过重。</td>
+            <td>复杂费用解释偏少。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="scenario-advice">
+        <strong>可复用启发</strong>
+        <ul>
+          <li>租期、套餐、地址和当前应付金额保持轻量。</li>
+          <li>押金、买断尾款、违约责任和协议做成摘要加展开。</li>
+          <li>按钮文案应表达当前动作的真实后果，例如提交审核、确认付款或等待扣款。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="order" class="panel">
+      <div class="scenario-header">
+        <div>
+          <div class="scenario-index">场景 04</div>
+          <h2>下单后 / 订单详情页</h2>
+          <p>订单详情页的核心是状态反馈。用户需要知道当前卡在哪里、自己是否需要行动、平台下一步会做什么。</p>
+        </div>
+        <div class="scenario-target">关键判断：订单详情页优先解释当前状态，而不是默认展示所有规则。</div>
+      </div>
+      <div class="comparison-wrap">
+        <div class="comparison-grid">
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Renrenzu</span>
+              <span class="tag warn">信息很全但重</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_003.png" alt="Renrenzu 订单详情页">
+            </div>
+            <div class="product-analysis">
+              <p>待付款倒计时、进度条、费用、押金、买断价、协议和违约责任都在同页。</p>
+              <p>保障感强，但风险信息会压住当前最重要的付款任务。</p>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Zhima Leasing</span>
+              <span class="tag good">等待状态清楚</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_011.png" alt="Zhima Leasing 订单详情页">
+            </div>
+            <div class="product-analysis">
+              <p>顶部直接显示“已签约待审核”和预计审核时间，并给联系客服入口。</p>
+              <p>用户知道当前主要任务是等待，焦虑感较低。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>对比项</th>
+            <th>Renrenzu</th>
+            <th>Zhima Leasing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>状态表达</td>
+            <td>待付款倒计时和进度条明显。</td>
+            <td>审核状态和预计时长很直接。</td>
+          </tr>
+          <tr>
+            <td>费用表达</td>
+            <td>完整但重。</td>
+            <td>简洁。</td>
+          </tr>
+          <tr>
+            <td>底部动作</td>
+            <td>联系客服、取消订单、去付款。</td>
+            <td>取消、账单、去认证。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="scenario-advice">
+        <strong>可复用启发</strong>
+        <ul>
+          <li>订单详情页先回答：当前状态是什么、用户现在要不要行动、平台下一步会做什么。</li>
+          <li>规则和协议要可访问，但不应压过当前阶段的主按钮和状态反馈。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="bill" class="panel">
+      <div class="scenario-header">
+        <div>
+          <div class="scenario-index">场景 05</div>
+          <h2>账单详情页</h2>
+          <p>账单页是租赁关系里的信任页面。金额、周期、应付日、扣款日和支付状态必须比普通电商订单更清楚。</p>
+        </div>
+        <div class="scenario-target">关键判断：账单要让用户快速知道现在欠什么、什么时候扣、失败怎么办。</div>
+      </div>
+      <div class="comparison-wrap">
+        <div class="comparison-grid">
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Renrenzu</span>
+              <span class="tag warn">层级偏弱</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_013.png" alt="Renrenzu 账单详情页">
+            </div>
+            <div class="product-analysis">
+              <p>账单总计、已支付、待支付金额和多期租金都有。</p>
+              <p>但历史项低对比，用户需要额外计算才能理解欠款构成。</p>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-head">
+              <span class="product-name">Zhima Leasing</span>
+              <span class="tag good">分期任务清楚</span>
+            </div>
+            <div class="phone-frame">
+              <img src="screens/screen_014.png" alt="Zhima Leasing 账单详情页">
+            </div>
+            <div class="product-analysis">
+              <p>每期卡片展示金额、优惠、计划付款时间和状态。</p>
+              <p>用户能快速找到待支付项，操作性强。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>对比项</th>
+            <th>Renrenzu</th>
+            <th>Zhima Leasing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>账单结构</td>
+            <td>总额、已付、待付和多期租金都有。</td>
+            <td>每期卡片清楚，待付项突出。</td>
+          </tr>
+          <tr>
+            <td>金额层级</td>
+            <td>待支付金额突出，历史项偏弱。</td>
+            <td>每期金额和状态并列，识别快。</td>
+          </tr>
+          <tr>
+            <td>时间表达</td>
+            <td>多期实际支付时间可见。</td>
+            <td>计划付款时间逐期展示。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="scenario-advice">
+        <strong>可复用启发</strong>
+        <ul>
+          <li>账单页推荐按每期固定字段展示：所属周期、应付日、自动扣款时间、金额、状态和动作。</li>
+          <li>不要让用户从流水里反推账单责任。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="actions" class="panel">
+      <div class="panel-body">
+        <h2>可直接复用的设计机会</h2>
+        <div class="checklist">
+          <div class="checklist-card">
+            <h3>拆出租赁信任链</h3>
+            <ul>
+              <li>租前解释免押、押金和发货。</li>
+              <li>租中解释质保、维修、损坏和换机。</li>
+              <li>租后解释归还、续租、买断和逾期。</li>
+            </ul>
+          </div>
+          <div class="checklist-card">
+            <h3>匹配按钮和状态</h3>
+            <ul>
+              <li>浏览阶段推动选择。</li>
+              <li>审核阶段表达等待。</li>
+              <li>待支付或支付失败阶段再强化付款动作。</li>
+            </ul>
+          </div>
+          <div class="checklist-card">
+            <h3>把费用做成因果</h3>
+            <ul>
+              <li>说明金额为什么出现。</li>
+              <li>说明什么时候付。</li>
+              <li>说明什么条件下可免或会变更。</li>
+            </ul>
+          </div>
+          <div class="checklist-card">
+            <h3>按期数组织账单</h3>
+            <ul>
+              <li>每期固定展示周期、应付日、扣款日、状态。</li>
+              <li>区分历史已付、当前待付和未来计划。</li>
+              <li>扣款失败时给清晰兜底动作。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="appendix" class="panel">
+      <div class="panel-body">
+        <h2>附录与文件</h2>
+        <p class="small">本报告继承原横向报告的切屏结果，仅使用 Renrenzu 与 Zhima Leasing 的可见界面进行分析。PDF 文本层抽取存在乱码，因此判断来自渲染图像中可见的 UI 文案、金额、状态、结构和按钮。</p>
+        <div class="artifact-links">
+          <a href="report.md">Markdown 报告</a>
+          <a href="screens/screen_001.png">Renrenzu 商品详情上半段</a>
+          <a href="screens/screen_002.png">Zhima Leasing 商品详情</a>
+          <a href="../comparison-rental/report.md">原横向报告</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
