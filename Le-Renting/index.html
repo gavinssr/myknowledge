@@ -164,29 +164,27 @@
 
     .sensitive-button {
       width: fit-content;
-      min-height: 28px;
       margin-top: 10px;
-      padding: 4px 11px;
-      border: 1px solid #a69f94;
-      border-radius: 999px;
+      padding: 0;
+      border: 0;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
       background: transparent;
       color: #a69f94;
       font: inherit;
       font-size: 12px;
       font-weight: 760;
-      line-height: 1;
+      line-height: 1.35;
       cursor: pointer;
     }
 
     .sensitive-button:hover,
     .sensitive-button:focus-visible {
       outline: 0;
-      border-color: #8f887e;
       color: #8f887e;
       background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     .preview {
@@ -217,9 +215,8 @@
     .preview-path {
       margin: 4px 0 0;
       color: var(--muted);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 12px;
-      line-height: 1.4;
+      font-size: 13px;
+      line-height: 1.5;
       overflow-wrap: anywhere;
     }
 
@@ -312,22 +309,22 @@
       <section class="panel" aria-labelledby="reports-title">
         <h2 class="section-title" id="reports-title">分析报告</h2>
         <div class="report-list">
-          <div class="report-item is-active" role="button" tabindex="0" data-title="租赁竞品流程横向分析报告" data-src="outputs/comparison-rental-no-zuzule/report.html" data-key="comparison-no-zuzule">
-            <span class="thumb"><img src="outputs/comparison-rental-no-zuzule/report_preview.svg" alt=""></span>
+          <div class="report-item is-active" role="button" tabindex="0" data-title="租赁竞品流程横向分析报告" data-src="outputs/comparison-rental-two-products/report.html" data-key="comparison-two-products" data-summary="基于原横向报告，仅保留 Renrenzu 与 Zhima Leasing 两个产品，在同一租赁场景下比较流程组织、信任表达、费用呈现和状态反馈。">
+            <span class="thumb"><img src="outputs/comparison-rental-two-products/report_preview.svg" alt=""></span>
             <span>
               <span class="item-title">双产品报告</span>
               <span class="item-meta">人人租、芝麻租赁的关键页面横向对比</span>
-              <button class="sensitive-button" type="button" data-sensitive-report="outputs/comparison-rental/report.html">敏感代码 <span aria-hidden="true">→</span></button>
+              <button class="sensitive-button" type="button" data-sensitive-report="outputs/comparison-rental/report.html">敏感代码</button>
             </span>
           </div>
-          <button class="report-item" type="button" data-title="人人租竞品流程分析报告" data-src="outputs/renrenzu-rental/report.html" data-key="renrenzu">
+          <button class="report-item" type="button" data-title="人人租竞品流程分析报告" data-src="outputs/renrenzu-rental/report.html" data-key="renrenzu" data-summary="人人租的租机流程把低日租、信用免押、订单状态和证据链做得很强，适合高频强化转化和风险控制。">
             <span class="thumb"><img src="outputs/renrenzu-rental/screen_contact_sheet.png" alt=""></span>
             <span>
               <span class="item-title">人人租竞品流程分析</span>
               <span class="item-meta">人人租路径、风险点和可借鉴模式</span>
             </span>
           </button>
-          <button class="report-item" type="button" data-title="芝麻租赁竞品流程分析报告" data-src="outputs/zhima-rental/report.html" data-key="zhima">
+          <button class="report-item" type="button" data-title="芝麻租赁竞品流程分析报告" data-src="outputs/zhima-rental/report.html" data-key="zhima" data-summary="芝麻租赁这组流程的核心优势是把租赁业务里最容易制造不信任的部分持续外显。">
             <span class="thumb"><img src="outputs/zhima-rental/canvas_preview.png" alt=""></span>
             <span>
               <span class="item-title">芝麻租赁竞品流程分析</span>
@@ -342,15 +339,15 @@
       <div class="preview-bar">
         <div>
           <h2 class="preview-title" id="previewTitle">租赁竞品流程横向分析报告</h2>
-          <p class="preview-path" id="previewPath">outputs/comparison-rental-no-zuzule/report.html</p>
+          <p class="preview-path" id="previewPath">基于原横向报告，仅保留 Renrenzu 与 Zhima Leasing 两个产品，在同一租赁场景下比较流程组织、信任表达、费用呈现和状态反馈。</p>
         </div>
-        <a class="open-link" id="openLink" href="outputs/comparison-rental-no-zuzule/report.html" target="_blank" rel="noreferrer" aria-label="新窗口打开当前预览">
+        <a class="open-link" id="openLink" href="outputs/comparison-rental-two-products/report.html" target="_blank" rel="noreferrer" aria-label="新窗口打开当前预览">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17 17 7M10 7h7v7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
       </div>
-      <iframe id="previewFrame" title="Le-Renting 报告预览" src="outputs/comparison-rental-no-zuzule/report.html"></iframe>
+      <iframe id="previewFrame" title="Le-Renting 报告预览" src="outputs/comparison-rental-two-products/report.html"></iframe>
     </section>
   </main>
 
@@ -366,13 +363,14 @@
     function activate(item, shouldUpdateHash = true) {
       const nextTitle = item.dataset.title;
       const nextSrc = item.dataset.src;
+      const nextSummary = item.dataset.summary || nextSrc;
 
       reports.forEach((entry) => {
         entry.classList.toggle("is-active", entry === item);
       });
 
       title.textContent = nextTitle;
-      path.textContent = nextSrc;
+      path.textContent = nextSummary;
       frame.src = nextSrc;
       openLink.href = nextSrc;
 

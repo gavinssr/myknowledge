@@ -3,7 +3,7 @@
 生成日期：2026-05-27  
 基准报告：`outputs/comparison-rental/report.md`  
 输入文件：`inputs/竞品对比-260526.pdf`  
-输出目录：`outputs/comparison-rental-no-zuzule`
+输出目录：`outputs/comparison-rental-two-products`
 
 ## 1. 输入与范围
 
