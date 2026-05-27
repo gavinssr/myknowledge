@@ -234,33 +234,6 @@
       line-height: 1.45;
     }
 
-    .sensitive-button {
-      width: fit-content;
-      min-height: 28px;
-      margin-top: 10px;
-      padding: 4px 11px;
-      border: 1px solid #a69f94;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: transparent;
-      color: #a69f94;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 760;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .sensitive-button:hover,
-    .sensitive-button:focus-visible {
-      outline: 0;
-      border-color: #8f887e;
-      color: #8f887e;
-      background: transparent;
-    }
-
     .preview {
       min-width: 0;
       min-height: calc(100vh - 44px);
@@ -441,30 +414,6 @@
           <h2 class="section-title" id="renting-title">Le-Renting 预览项目</h2>
           <a class="section-open-link" href="Le-Renting/index.html" target="_blank" rel="noreferrer">独立窗口打开</a>
         </div>
-        <div class="nav-list">
-          <div class="nav-item" role="button" tabindex="0" data-title="租赁竞品流程横向分析报告" data-src="Le-Renting/outputs/comparison-rental-no-zuzule/report.html">
-            <span class="thumb"><img src="Le-Renting/outputs/comparison-rental-no-zuzule/report_preview.svg" alt=""></span>
-            <span>
-              <span class="item-title">双产品报告</span>
-              <span class="item-meta">人人租、芝麻租赁的横向对比报告</span>
-              <button class="sensitive-button" type="button" data-sensitive-report="Le-Renting/outputs/comparison-rental/report.html">敏感代码 <span aria-hidden="true">→</span></button>
-            </span>
-          </div>
-          <button class="nav-item" type="button" data-title="人人租竞品流程分析报告" data-src="Le-Renting/outputs/renrenzu-rental/report.html">
-            <span class="thumb"><img src="Le-Renting/outputs/renrenzu-rental/screen_contact_sheet.png" alt=""></span>
-            <span>
-              <span class="item-title">人人租竞品流程分析</span>
-              <span class="item-meta">人人租路径拆解、关键发现与风险建议</span>
-            </span>
-          </button>
-          <button class="nav-item" type="button" data-title="芝麻租赁竞品流程分析报告" data-src="Le-Renting/outputs/zhima-rental/report.html">
-            <span class="thumb"><img src="Le-Renting/outputs/zhima-rental/canvas_preview.png" alt=""></span>
-            <span>
-              <span class="item-title">芝麻租赁竞品流程分析</span>
-              <span class="item-meta">芝麻租赁路径拆解、关键发现与风险建议</span>
-            </span>
-          </button>
-        </div>
       </section>
     </aside>
 
@@ -486,8 +435,6 @@
     const title = document.getElementById("previewTitle");
     const path = document.getElementById("previewPath");
     const openLink = document.getElementById("openLink");
-    const sensitiveButtons = Array.from(document.querySelectorAll("[data-sensitive-report]"));
-    const sensitivePassword = "854341188";
 
     function activate(item) {
       const nextTitle = item.dataset.title;
@@ -504,38 +451,16 @@
     }
 
     items.forEach((item) => {
-      item.addEventListener("click", (event) => {
-        if (event.target.closest("[data-sensitive-report]")) {
-          return;
-        }
-
-        activate(item);
-      });
+      item.addEventListener("click", () => activate(item));
 
       item.addEventListener("keydown", (event) => {
-        if (item.tagName === "BUTTON" || event.target.closest("[data-sensitive-report]")) {
+        if (item.tagName === "BUTTON") {
           return;
         }
 
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           activate(item);
-        }
-      });
-    });
-
-    sensitiveButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.stopPropagation();
-
-        const enteredPassword = window.prompt("请输入访问密码");
-        if (enteredPassword === sensitivePassword) {
-          window.open(button.dataset.sensitiveReport, "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (enteredPassword !== null) {
-          window.alert("密码不正确，无法打开。");
         }
       });
     });
