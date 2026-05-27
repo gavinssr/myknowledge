@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Pages 手动设置指南</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f4ef;
+      --paper: #fffdf8;
+      --ink: #202124;
+      --muted: #676158;
+      --line: #ddd6c9;
+      --accent: #1f6f68;
+      --accent-soft: #e3f2ee;
+      --blue: #285f9f;
+      --code: #f1eee7;
+      --shadow: 0 18px 48px rgba(47, 39, 28, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    .page {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 44px 0 56px;
+    }
+
+    header {
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.04;
+      font-weight: 820;
+    }
+
+    .summary {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .facts {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .fact {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfaf6;
+    }
+
+    .fact-label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .fact-value {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: 760;
+      overflow-wrap: anywhere;
+    }
+
+    main {
+      margin-top: 18px;
+      display: grid;
+      gap: 18px;
+    }
+
+    section {
+      padding: 28px 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 23px;
+      line-height: 1.25;
+    }
+
+    ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: steps;
+      display: grid;
+      gap: 14px;
+    }
+
+    li {
+      counter-increment: steps;
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    li::before {
+      content: counter(steps);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .step-title {
+      margin: 2px 0 4px;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .step-body {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: var(--code);
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95em;
+    }
+
+    .callout {
+      border-color: #b8d5cf;
+      background: var(--accent-soft);
+      box-shadow: none;
+    }
+
+    .callout p {
+      margin: 0;
+      color: #194f49;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .checklist {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: block;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfaf6;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .checklist li::before {
+      content: none;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 20px, 980px);
+        padding: 18px 0 32px;
+      }
+
+      header,
+      section {
+        padding: 22px;
+      }
+
+      .facts {
+        grid-template-columns: 1fr;
+      }
+
+      li {
+        grid-template-columns: 32px minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      li::before {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="eyebrow">GitHub Pages</p>
+      <h1>把仓库首页发布成在线网页</h1>
+      <p class="summary">这份指南用于手动开启 GitHub Pages。核心机制很简单：GitHub 会把你指定的分支和目录当作网站根目录，目录里的 <code>index.html</code> 会成为默认首页。</p>
+      <div class="facts" aria-label="当前仓库配置">
+        <div class="fact">
+          <span class="fact-label">仓库</span>
+          <span class="fact-value">gavinssr/myknowledge</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">发布源</span>
+          <span class="fact-value">main / root</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">在线地址</span>
+          <span class="fact-value">gavinssr.github.io/myknowledge/</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>手动设置步骤</h2>
+        <ol>
+          <li>
+            <div>
+              <p class="step-title">打开仓库页面</p>
+              <p class="step-body">进入 <a href="https://github.com/gavinssr/myknowledge" target="_blank" rel="noreferrer">github.com/gavinssr/myknowledge</a>。</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <p class="step-title">进入 Settings</p>
+              <p class="step-body">点击仓库顶部导航里的 <code>Settings</code>。</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <p class="step-title">打开 Pages 设置</p>
+              <p class="step-body">在左侧栏找到并点击 <code>Pages</code>。</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <p class="step-title">选择发布来源</p>
+              <p class="step-body">在 <code>Build and deployment</code> 里，把 <code>Source</code> 设置为 <code>Deploy from a branch</code>。</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <p class="step-title">选择分支和目录</p>
+              <p class="step-body"><code>Branch</code> 选择 <code>main</code>，目录选择 <code>/ (root)</code>，然后点击 <code>Save</code>。</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <p class="step-title">等待发布完成</p>
+              <p class="step-body">首次发布通常需要几十秒到几分钟。完成后访问 <a href="https://gavinssr.github.io/myknowledge/" target="_blank" rel="noreferrer">https://gavinssr.github.io/myknowledge/</a>。</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="callout">
+        <p>以后更新页面时，只需要把新的文件提交并推送到 <code>main</code>。GitHub Pages 会自动重新发布，但线上页面可能有短暂缓存延迟。</p>
+      </section>
+
+      <section>
+        <h2>发布前检查</h2>
+        <ul class="checklist">
+          <li>仓库根目录存在 <code>index.html</code>。</li>
+          <li>首页里链接的 HTML、图片、PDF 等资源已经提交到仓库。</li>
+          <li>文件路径使用相对路径，例如 <code>Le-Renting/outputs/.../report.html</code>。</li>
+          <li>仓库是 public，或当前 GitHub 账号套餐允许 private repository 使用 Pages。</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
