@@ -224,27 +224,31 @@
     }
 
     .open-link {
-      min-height: 38px;
-      padding: 0 13px;
-      border: 1px solid var(--accent);
-      border-radius: 6px;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 760;
+      background: transparent;
+      color: var(--accent-strong);
       text-decoration: none;
-      white-space: nowrap;
     }
 
     .open-link:hover,
     .open-link:focus-visible {
       outline: 0;
-      border-color: var(--accent-strong);
-      background: var(--accent-strong);
-      color: #fff;
+      background: rgba(31, 111, 104, 0.08);
+      color: var(--accent);
+    }
+
+    .open-link svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      stroke: currentColor;
     }
 
     iframe {
@@ -282,14 +286,6 @@
 
       h1 {
         font-size: 24px;
-      }
-
-      .preview-bar {
-        grid-template-columns: 1fr;
-      }
-
-      .open-link {
-        width: 100%;
       }
 
       .report-item {
@@ -348,7 +344,11 @@
           <h2 class="preview-title" id="previewTitle">租赁竞品流程横向分析报告</h2>
           <p class="preview-path" id="previewPath">outputs/comparison-rental-no-zuzule/report.html</p>
         </div>
-        <a class="open-link" id="openLink" href="outputs/comparison-rental-no-zuzule/report.html" target="_blank" rel="noreferrer">打开当前报告</a>
+        <a class="open-link" id="openLink" href="outputs/comparison-rental-no-zuzule/report.html" target="_blank" rel="noreferrer" aria-label="新窗口打开当前预览">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 17 7M10 7h7v7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
       <iframe id="previewFrame" title="Le-Renting 报告预览" src="outputs/comparison-rental-no-zuzule/report.html"></iframe>
     </section>
