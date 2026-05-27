@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>芝麻租赁竞品流程分析报告</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --surface: #ffffff;
+      --ink: #171a1f;
+      --muted: #5f6875;
+      --line: #dfe3ea;
+      --blue: #1769e0;
+      --green: #198754;
+      --amber: #b7791f;
+      --orange: #c65d14;
+      --red: #c53030;
+      --shadow: 0 18px 48px rgba(23, 26, 31, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout { display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: 100vh; }
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      background: #111418;
+      color: white;
+      overflow: auto;
+    }
+    nav h1 { font-size: 18px; line-height: 1.25; margin: 0 0 8px; }
+    nav p { color: #aeb7c4; margin: 0 0 24px; font-size: 13px; }
+    nav a { display: block; color: #e8edf5; padding: 8px 0; font-size: 14px; }
+    main { padding: 40px clamp(24px, 4vw, 64px) 72px; max-width: 1440px; width: 100%; }
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: clamp(28px, 4vw, 48px);
+      box-shadow: var(--shadow);
+    }
+    .eyebrow { color: var(--muted); font-size: 13px; letter-spacing: 0; margin: 0 0 8px; }
+    h2 { margin: 44px 0 16px; font-size: 26px; line-height: 1.25; }
+    h3 { margin: 0 0 12px; font-size: 20px; line-height: 1.35; }
+    h4 { margin: 10px 0 12px; font-size: 16px; line-height: 1.45; }
+    .hero h1 { margin: 0; font-size: clamp(34px, 5vw, 58px); line-height: 1.08; letter-spacing: 0; }
+    .hero .summary { max-width: 920px; font-size: 18px; color: #303742; margin: 22px 0 0; }
+    .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+    .pill { border: 1px solid var(--line); background: rgba(255,255,255,.72); border-radius: 999px; padding: 7px 12px; color: #374151; font-size: 13px; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: 12px; margin-top: 22px; }
+    .metric { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+    .metric span { font-size: 30px; font-weight: 760; display: block; line-height: 1; }
+    .metric p { margin: 6px 0 0; color: var(--muted); }
+    .section { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 24px; box-shadow: 0 8px 28px rgba(23,26,31,.04); margin-top: 18px; }
+    .twocol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .lane-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .lane { border: 1px solid var(--line); border-radius: 8px; padding: 16px; background: #fbfcfe; }
+    .lane p { margin: 6px 0 0; color: var(--muted); }
+    .image-panel { background: #101214; border-radius: 10px; padding: 16px; overflow: auto; }
+    .image-panel img { display: block; max-width: 100%; min-width: 980px; border-radius: 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border-bottom: 1px solid var(--line); padding: 12px 10px; vertical-align: top; text-align: left; }
+    th { color: #4b5563; font-weight: 680; background: #f8fafc; position: sticky; top: 0; }
+    td p { margin: 4px 0 0; color: var(--muted); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 9px; font-size: 12px; font-weight: 680; white-space: nowrap; }
+    .badge-positive { color: #0f6b3e; background: #e6f6ee; }
+    .badge-medium { color: #83520d; background: #fff4d6; }
+    .badge-high { color: #9a3d0a; background: #ffe8d6; }
+    .badge-low { color: #164c9c; background: #e7f0ff; }
+    .badge-critical { color: #991b1b; background: #fee2e2; }
+    .screen-card {
+      display: grid;
+      grid-template-columns: minmax(180px, 270px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 18px;
+      margin-top: 18px;
+      box-shadow: 0 8px 28px rgba(23,26,31,.04);
+    }
+    .screen-media { background: #edf0f5; border-radius: 8px; padding: 10px; text-align: center; }
+    .screen-media img { max-width: 100%; max-height: 680px; object-fit: contain; border-radius: 4px; box-shadow: 0 10px 26px rgba(23,26,31,.16); }
+    .finding { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 16px; }
+    .finding:first-of-type { border-top: 0; padding-top: 0; }
+    .finding-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .point-id { font-weight: 800; color: var(--blue); }
+    .cat { color: var(--muted); font-size: 13px; }
+    dl { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 8px 12px; margin: 0; }
+    dt { color: var(--muted); font-weight: 680; }
+    dd { margin: 0; }
+    .list-card ul, .list-card ol { margin: 0; padding-left: 22px; }
+    .list-card li + li { margin-top: 8px; }
+    footer { margin-top: 44px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: relative; height: auto; }
+      main { padding: 24px 16px 48px; }
+      .twocol, .screen-card { grid-template-columns: 1fr; }
+      .image-panel img { min-width: 720px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <h1>芝麻租赁<br>竞品流程分析</h1>
+      <p>HTML 阅读版 · 2026-05-26</p>
+      <a href="#scope">输入与范围</a>
+      <a href="#overview">流程结构</a>
+      <a href="#conclusion">执行结论</a>
+      <a href="#flow">标注总图</a>
+      <a href="#findings">关键发现</a>
+      <a href="#screens">分屏分析</a>
+      <a href="#patterns">可借鉴模式</a>
+      <a href="#risks">风险与建议</a>
+      <a href="#appendix">附录</a>
+    </nav>
+    <main>
+      <header class="hero" id="top">
+        <p class="eyebrow">芝麻租赁 · 租机/租赁下单、审核、订单状态、账单与商详分支</p>
+        <h1>芝麻租赁竞品流程分析报告</h1>
+        <p class="summary">芝麻租赁这组流程的核心优势是把租赁业务里最容易制造不信任的部分持续外显：芝麻信用免押、首期租金、总租金、期数、商家审核、身份证补充、账单分期、履约/违约责任都能在关键节点被看见。主要问题不在功能缺失，而在信息密度和责任文案的组织方式：用户能找到规则，但需要在多个长页、弹窗和订单状态之间反复理解，决策成本偏高。</p>
+        <div class="meta">
+          <span class="pill">输入：inputs/芝麻租赁.pdf</span>
+          <span class="pill">屏幕：33 个</span>
+          <span class="pill">分析点：13 个</span>
+          <span class="pill">标注画布：8192 × 4055</span>
+        </div>
+        <div class="metrics"><div class="metric metric-high"><span>2</span><p>高风险</p></div>
+<div class="metric metric-medium"><span>3</span><p>中风险</p></div>
+<div class="metric metric-positive"><span>8</span><p>可借鉴</p></div></div>
+      </header>
+
+      <h2 id="scope">1. 输入与范围</h2>
+      <section class="section list-card">
+        <ul>
+          <li>输入文件：inputs/芝麻租赁.pdf</li>
+          <li>输出目录：outputs/zhima-rental</li>
+          <li>分析对象：已拼接的芝麻租赁移动端竞品流程图，覆盖首页、商品详情、下单流程、订单状态、账单和商详分支。</li>
+          <li>方法说明：先将 PDF 渲染为 canvas.png，再自动切分 33 个屏幕截图；随后基于可见 UI 文案、层级、状态与业务信息生成结构化分析点。</li>
+        </ul>
+      </section>
+
+      <h2 id="overview">2. 流程结构概览</h2>
+      <section class="lane-grid"><div class="lane"><strong>首页</strong><p>从“芝麻租赁”频道入口和商品流进入租赁商品。</p></div>
+<div class="lane"><strong>商详</strong><p>商品详情展示日租价、租期价格、信用免押、租赁方案、租后方案、常见问题和商品详情。</p></div>
+<div class="lane"><strong>下单流程</strong><p>配置租期/方案、确认订单、芝麻信用授权、优惠券、支付/确认等节点。</p></div>
+<div class="lane"><strong>订单状态</strong><p>覆盖审核中、待发货、已发货、租用中、补充身份证、商家延迟发货、物流详情等状态。</p></div>
+<div class="lane"><strong>账单</strong><p>展示应付/已付/未付租金、分期账单、支付状态和费用明细。</p></div>
+<div class="lane"><strong>商详分支</strong><p>协议、备注、首期实付租金、租金付款计划、总租金优惠等解释性分支。</p></div></section>
+
+      <h2 id="conclusion">3. 执行结论</h2>
+      <section class="section twocol">
+        <div class="list-card">
+          <h3>核心发现</h3>
+          <ul><li>商品详情页先用日租价、租期价格、信用免押和租后方案降低进入门槛，再在下单页显性拆分首期、剩余租金、总租金和免押金额。</li>
+<li>流程把租赁履约状态拆成提交成功、订单审核、支付租金、订单发货、签收使用、归还/买断/续租、订单完成，状态颗粒度清晰。</li>
+<li>审核失败/补充资料/商家延迟发货等风险状态有入口和行动按钮，但解释文本依赖长文和协议，快速理解成本较高。</li>
+<li>账单和费用明细支持分期查看、已付/未付区分和优惠拆解，是值得借鉴的后置解释机制。</li></ul>
+        </div>
+        <div class="list-card">
+          <h3>设计机会</h3>
+          <ul><li>把首期应付、免押金额、剩余分期、逾期/损坏责任做成可复用的“租赁决策摘要”，贯穿详情页、确认订单、审核中、租用中和账单。</li>
+<li>将长协议拆成分层摘要：先给用户三到五条可执行责任，再提供完整协议入口，降低阅读阻力同时保留合规完整性。</li>
+<li>订单状态页可把“为什么卡住、谁在处理、预计多久、用户还能做什么”做成统一状态解释模块，减少客服依赖。</li>
+<li>账单页可在未选择分期时降低“去支付”按钮优先级，或增加默认选中/明确空状态，减少支付前的选择歧义。</li></ul>
+        </div>
+      </section>
+
+      <h2 id="flow">4. 标注总图</h2>
+      <section class="section">
+        <p class="eyebrow">点击图片可打开原始大图。标注点 A1-A13 与下方关键发现表、分屏分析一一对应。</p>
+        <div class="image-panel"><a href="annotated_flow.png" target="_blank" rel="noreferrer"><img src="annotated_flow.png" alt="芝麻租赁流程标注总图"></a></div>
+      </section>
+
+      <h2 id="findings">5. 关键发现列表</h2>
+      <section class="section">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>严重度</th><th>分类</th><th>页面</th><th>洞察</th><th>建议</th></tr></thead>
+            <tbody>
+<tr>
+  <td><a href="#A1">A1</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>正向参考</td>
+  <td><a href="#screen_002">商品详情页</a></td>
+  <td><strong>决策信息前置，先回答租赁是否划算</strong><p>页面顶部同时展示日租价、不同租期价格、信用免押、租赁方式、租期和租后方案，用户不用先进入下单页就能判断基本成本和履约方式。</p></td>
+  <td>自有方案可复用这种前置结构，但把“首期应付、后续分期、押金风险”压缩成一块更稳定的摘要，避免用户只记住低日租价。</td>
+</tr>
+<tr>
+  <td><a href="#A2">A2</a></td>
+  <td><span class="badge badge-medium">中风险</span></td>
+  <td>决策成本</td>
+  <td><a href="#screen_002">商品详情页</a></td>
+  <td><strong>规则完整但阅读成本集中在长页中段</strong><p>租赁规则、损坏赔偿、租期计算、取消退款等内容都能找到，但它们被放在长滚动页面中，与固定底部 CTA 的即时行动距离较远。</p></td>
+  <td>在 CTA 上方增加一条可展开的风险摘要，例如“免押不等于免赔，损坏/逾期将扣除相应费用”，让关键责任跟随行动出现。</td>
+</tr>
+<tr>
+  <td><a href="#A3">A3</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>转化模式</td>
+  <td><a href="#screen_004">商详租赁配置弹窗</a></td>
+  <td><strong>配置决策被收敛到一个确认面板</strong><p>用户从商品详情进入租赁配置后，收货方式、租赁方案、颜色、租期和起止日期被集中在同一个底部面板，减少了跨页跳转。</p></td>
+  <td>保留底部面板的高效形态，同时在日期与租期附近显示首期变化，避免用户配置后才在确认订单页发现价格变化。</td>
+</tr>
+<tr>
+  <td><a href="#A4">A4</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>业务规则外显</td>
+  <td><a href="#screen_006">确认订单页</a></td>
+  <td><strong>下单前清楚拆出首期、剩余租金和免押</strong><p>确认订单页把首期实付、剩余租金、总租金、运费、实付押金和芝麻信用免押金额放在同一屏，能帮助用户确认现金流与信用担保关系。</p></td>
+  <td>自有设计应把这类费用拆分视为核心组件，而不是普通订单金额行；它直接影响用户对免押租赁的信任。</td>
+</tr>
+<tr>
+  <td><a href="#A5">A5</a></td>
+  <td><span class="badge badge-medium">中风险</span></td>
+  <td>信任与风险</td>
+  <td><a href="#screen_007">芝麻信用授权弹窗</a></td>
+  <td><strong>免押价值清楚，但授权协议说明弱于主按钮</strong><p>弹窗把芝麻分、已免押金额、首期金额和损坏扣押金说清楚，信任建立很强；但协议与服务条款位于主按钮下方，视觉优先级明显弱于确认动作。</p></td>
+  <td>把“授权会用于什么、不会用于什么、发生损坏如何处理”做成按钮上方的三点摘要，协议链接作为完整说明承接。</td>
+</tr>
+<tr>
+  <td><a href="#A6">A6</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>状态反馈</td>
+  <td><a href="#screen_012">订单审核页</a></td>
+  <td><strong>审核中解释了为什么需要个人信息</strong><p>审核状态没有只给一个等待进度条，而是解释商家为什么要判断履约能力，并给出身份证照片补充入口。</p></td>
+  <td>值得学习这种“状态 + 原因 + 下一步”的结构；自有流程可以进一步增加预计审核时长和逾期未处理后果。</td>
+</tr>
+<tr>
+  <td><a href="#A7">A7</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>信任与风险</td>
+  <td><a href="#screen_013">租用中订单详情页</a></td>
+  <td><strong>租用中状态持续暴露风险、担保和交易证据</strong><p>订单进入履约后仍持续展示举报、首期应付、配送、平台担保、冻结押金、交易快照和协议入口，降低了租赁中后段的不确定性。</p></td>
+  <td>租赁产品不应只在下单前解释规则；履约中也要持续把责任、证据和救济入口放在用户可见位置。</td>
+</tr>
+<tr>
+  <td><a href="#A8">A8</a></td>
+  <td><span class="badge badge-high">高风险</span></td>
+  <td>文案表达</td>
+  <td><a href="#screen_013">租用中订单详情页</a></td>
+  <td><strong>违约责任完整但难以快速形成行动判断</strong><p>页面把逾期、提前归还、买断、续租、赔偿等责任用大段协议式文本呈现，信息完整但不适合移动端快速理解。</p></td>
+  <td>把长文前置成责任摘要表：触发条件、用户要做什么、费用/后果、处理入口；完整协议放在次级入口。</td>
+</tr>
+<tr>
+  <td><a href="#A9">A9</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>流程逻辑</td>
+  <td><a href="#screen_015">待发货状态页</a></td>
+  <td><strong>状态颗粒度贴合租赁履约链路</strong><p>流程不是普通电商的下单-发货-收货，而是拆成免押下单、商家发货、签收使用、购买/归还/续租、订单完成，能反映租赁业务真实任务。</p></td>
+  <td>自有流程应把状态模型按租赁履约设计，而不是复用普通订单状态；状态名称本身就是用户教育。</td>
+</tr>
+<tr>
+  <td><a href="#A10">A10</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>行动策略</td>
+  <td><a href="#screen_021">我的页面订单卡</a></td>
+  <td><strong>个人中心给出状态相关动作</strong><p>我的页面没有只展示订单列表，而是把待处理订单与审核投诉、联系商家、去支付等动作放在同一卡片内，适合高频回访。</p></td>
+  <td>个人中心应承担租赁履约入口，不只是资产列表；按状态露出最可能的下一步动作能减少用户返回订单详情的次数。</td>
+</tr>
+<tr>
+  <td><a href="#A11">A11</a></td>
+  <td><span class="badge badge-medium">中风险</span></td>
+  <td>决策成本</td>
+  <td><a href="#screen_025">账单详情页</a></td>
+  <td><strong>账单可分期选择，但未选中时支付意图不够明确</strong><p>账单页清楚列出每期租金、优惠和计划付款时间；但默认未勾选时底部总计为 ¥0.00，同时仍有强主按钮“去支付”，会让用户需要额外判断是否必须先选期数。</p></td>
+  <td>未选择账单时可禁用主按钮或默认选中最早到期一期，并把“可提前支付租金”转化为明确选择提示。</td>
+</tr>
+<tr>
+  <td><a href="#A12">A12</a></td>
+  <td><span class="badge badge-high">高风险</span></td>
+  <td>信任与风险</td>
+  <td><a href="#screen_027">租赁服务协议页</a></td>
+  <td><strong>协议页承载完整合规内容，但缺少阅读导航</strong><p>完整协议页面对商家、平台、订单、收货、违约等条款有全面描述，但移动端长文没有目录、摘要或重点标记，用户很难在下单前抓住关键风险。</p></td>
+  <td>在协议页顶部加入“你需要重点知道的 5 件事”和章节锚点；完整条款保留，但先服务用户理解。</td>
+</tr>
+<tr>
+  <td><a href="#A13">A13</a></td>
+  <td><span class="badge badge-positive">可借鉴</span></td>
+  <td>业务规则外显</td>
+  <td><a href="#screen_032">租金付款计划弹窗</a></td>
+  <td><strong>费用拆解支持向下钻取</strong><p>在账单/确认订单分支中，用户可以查看每期扣款计划、优惠前金额和具体日期，补足了下单页无法承载的明细。</p></td>
+  <td>保留这种向下钻取，但入口文案要直接说明它解释的是付款计划，而不是泛化的金额详情。</td>
+</tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <h2 id="screens">6. 分屏分析</h2>
+      
+<section class="screen-card" id="screen_002">
+  <div class="screen-media">
+    <a href="screens/screen_002.png" target="_blank" rel="noreferrer"><img src="screens/screen_002.png" alt="screen_002 商品详情页 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_002</p>
+    <h3>商品详情页</h3>
+    
+<article class="finding" id="A1">
+  <div class="finding-head">
+    <span class="point-id">A1</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">正向参考</span>
+  </div>
+  <h4>决策信息前置，先回答租赁是否划算</h4>
+  <dl>
+    <dt>目标区域</dt><dd>价格、信用免押与租赁方案区</dd>
+    <dt>洞察</dt><dd>页面顶部同时展示日租价、不同租期价格、信用免押、租赁方式、租期和租后方案，用户不用先进入下单页就能判断基本成本和履约方式。</dd>
+    <dt>证据</dt><dd>可见信息包括“信用免押”、租 3 天/7 天/30 天/90 天价格、到期可归还/续租、续/买/归还方案等。</dd>
+    <dt>建议</dt><dd>自有方案可复用这种前置结构，但把“首期应付、后续分期、押金风险”压缩成一块更稳定的摘要，避免用户只记住低日租价。</dd>
+  </dl>
+</article>
+<article class="finding" id="A2">
+  <div class="finding-head">
+    <span class="point-id">A2</span>
+    <span class="badge badge-medium">中风险</span>
+    <span class="cat">决策成本</span>
+  </div>
+  <h4>规则完整但阅读成本集中在长页中段</h4>
+  <dl>
+    <dt>目标区域</dt><dd>租赁说明、规则与底部 CTA</dd>
+    <dt>洞察</dt><dd>租赁规则、损坏赔偿、租期计算、取消退款等内容都能找到，但它们被放在长滚动页面中，与固定底部 CTA 的即时行动距离较远。</dd>
+    <dt>证据</dt><dd>页面中段有“商家损坏赔付说明”“租期计算规则”等长文，底部仍固定“去免押租”主按钮。</dd>
+    <dt>建议</dt><dd>在 CTA 上方增加一条可展开的风险摘要，例如“免押不等于免赔，损坏/逾期将扣除相应费用”，让关键责任跟随行动出现。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_004">
+  <div class="screen-media">
+    <a href="screens/screen_004.png" target="_blank" rel="noreferrer"><img src="screens/screen_004.png" alt="screen_004 商详租赁配置弹窗 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_004</p>
+    <h3>商详租赁配置弹窗</h3>
+    
+<article class="finding" id="A3">
+  <div class="finding-head">
+    <span class="point-id">A3</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">转化模式</span>
+  </div>
+  <h4>配置决策被收敛到一个确认面板</h4>
+  <dl>
+    <dt>目标区域</dt><dd>底部配置弹窗</dd>
+    <dt>洞察</dt><dd>用户从商品详情进入租赁配置后，收货方式、租赁方案、颜色、租期和起止日期被集中在同一个底部面板，减少了跨页跳转。</dd>
+    <dt>证据</dt><dd>弹窗内可见快递配送、到期可归还/续租、黑色、3/7/30/90 天/自选租期、租期起止日期和确认按钮。</dd>
+    <dt>建议</dt><dd>保留底部面板的高效形态，同时在日期与租期附近显示首期变化，避免用户配置后才在确认订单页发现价格变化。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_006">
+  <div class="screen-media">
+    <a href="screens/screen_006.png" target="_blank" rel="noreferrer"><img src="screens/screen_006.png" alt="screen_006 确认订单页 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_006</p>
+    <h3>确认订单页</h3>
+    
+<article class="finding" id="A4">
+  <div class="finding-head">
+    <span class="point-id">A4</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">业务规则外显</span>
+  </div>
+  <h4>下单前清楚拆出首期、剩余租金和免押</h4>
+  <dl>
+    <dt>目标区域</dt><dd>费用明细与免押金额</dd>
+    <dt>洞察</dt><dd>确认订单页把首期实付、剩余租金、总租金、运费、实付押金和芝麻信用免押金额放在同一屏，能帮助用户确认现金流与信用担保关系。</dd>
+    <dt>证据</dt><dd>可见首期实付租金 ¥174.17、剩余租金、总租金 ¥522.50、实付押金 ¥0.00、芝麻信用免押以及已减免金额。</dd>
+    <dt>建议</dt><dd>自有设计应把这类费用拆分视为核心组件，而不是普通订单金额行；它直接影响用户对免押租赁的信任。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_007">
+  <div class="screen-media">
+    <a href="screens/screen_007.png" target="_blank" rel="noreferrer"><img src="screens/screen_007.png" alt="screen_007 芝麻信用授权弹窗 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_007</p>
+    <h3>芝麻信用授权弹窗</h3>
+    
+<article class="finding" id="A5">
+  <div class="finding-head">
+    <span class="point-id">A5</span>
+    <span class="badge badge-medium">中风险</span>
+    <span class="cat">信任与风险</span>
+  </div>
+  <h4>免押价值清楚，但授权协议说明弱于主按钮</h4>
+  <dl>
+    <dt>目标区域</dt><dd>芝麻信用授权说明</dd>
+    <dt>洞察</dt><dd>弹窗把芝麻分、已免押金额、首期金额和损坏扣押金说清楚，信任建立很强；但协议与服务条款位于主按钮下方，视觉优先级明显弱于确认动作。</dd>
+    <dt>证据</dt><dd>弹窗展示“你的芝麻分已达标”“本单押金已免除”“物品若丢失或损坏，将扣除相应押金”，底部小字列出多份协议。</dd>
+    <dt>建议</dt><dd>把“授权会用于什么、不会用于什么、发生损坏如何处理”做成按钮上方的三点摘要，协议链接作为完整说明承接。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_012">
+  <div class="screen-media">
+    <a href="screens/screen_012.png" target="_blank" rel="noreferrer"><img src="screens/screen_012.png" alt="screen_012 订单审核页 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_012</p>
+    <h3>订单审核页</h3>
+    
+<article class="finding" id="A6">
+  <div class="finding-head">
+    <span class="point-id">A6</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">状态反馈</span>
+  </div>
+  <h4>审核中解释了为什么需要个人信息</h4>
+  <dl>
+    <dt>目标区域</dt><dd>审核原因与资料补充卡片</dd>
+    <dt>洞察</dt><dd>审核状态没有只给一个等待进度条，而是解释商家为什么要判断履约能力，并给出身份证照片补充入口。</dd>
+    <dt>证据</dt><dd>页面写明“为什么审核需要我提供个人信息？”并展示“上传个人信息 / 身份证照片 / 去上传”。</dd>
+    <dt>建议</dt><dd>值得学习这种“状态 + 原因 + 下一步”的结构；自有流程可以进一步增加预计审核时长和逾期未处理后果。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_013">
+  <div class="screen-media">
+    <a href="screens/screen_013.png" target="_blank" rel="noreferrer"><img src="screens/screen_013.png" alt="screen_013 租用中订单详情页 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_013</p>
+    <h3>租用中订单详情页</h3>
+    
+<article class="finding" id="A7">
+  <div class="finding-head">
+    <span class="point-id">A7</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">信任与风险</span>
+  </div>
+  <h4>租用中状态持续暴露风险、担保和交易证据</h4>
+  <dl>
+    <dt>目标区域</dt><dd>订单中风险与担保信息</dd>
+    <dt>洞察</dt><dd>订单进入履约后仍持续展示举报、首期应付、配送、平台担保、冻结押金、交易快照和协议入口，降低了租赁中后段的不确定性。</dd>
+    <dt>证据</dt><dd>可见“举报”“平台担保 诚租敢赔”“冻结押金”“交易快照”“租用服务相关协议”等模块。</dd>
+    <dt>建议</dt><dd>租赁产品不应只在下单前解释规则；履约中也要持续把责任、证据和救济入口放在用户可见位置。</dd>
+  </dl>
+</article>
+<article class="finding" id="A8">
+  <div class="finding-head">
+    <span class="point-id">A8</span>
+    <span class="badge badge-high">高风险</span>
+    <span class="cat">文案表达</span>
+  </div>
+  <h4>违约责任完整但难以快速形成行动判断</h4>
+  <dl>
+    <dt>目标区域</dt><dd>违约责任长文</dd>
+    <dt>洞察</dt><dd>页面把逾期、提前归还、买断、续租、赔偿等责任用大段协议式文本呈现，信息完整但不适合移动端快速理解。</dd>
+    <dt>证据</dt><dd>“关于违约”区域包含多段长文，涵盖逾期交租/归还、提前归还/退租、买断、续租、赔偿等责任。</dd>
+    <dt>建议</dt><dd>把长文前置成责任摘要表：触发条件、用户要做什么、费用/后果、处理入口；完整协议放在次级入口。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_015">
+  <div class="screen-media">
+    <a href="screens/screen_015.png" target="_blank" rel="noreferrer"><img src="screens/screen_015.png" alt="screen_015 待发货状态页 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_015</p>
+    <h3>待发货状态页</h3>
+    
+<article class="finding" id="A9">
+  <div class="finding-head">
+    <span class="point-id">A9</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">流程逻辑</span>
+  </div>
+  <h4>状态颗粒度贴合租赁履约链路</h4>
+  <dl>
+    <dt>目标区域</dt><dd>订单状态进度条</dd>
+    <dt>洞察</dt><dd>流程不是普通电商的下单-发货-收货，而是拆成免押下单、商家发货、签收使用、购买/归还/续租、订单完成，能反映租赁业务真实任务。</dd>
+    <dt>证据</dt><dd>待发货页面顶部进度条显示“免押下单、商家发货、签收使用、购买/归还/续租、订单完成”。</dd>
+    <dt>建议</dt><dd>自有流程应把状态模型按租赁履约设计，而不是复用普通订单状态；状态名称本身就是用户教育。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_021">
+  <div class="screen-media">
+    <a href="screens/screen_021.png" target="_blank" rel="noreferrer"><img src="screens/screen_021.png" alt="screen_021 我的页面订单卡 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_021</p>
+    <h3>我的页面订单卡</h3>
+    
+<article class="finding" id="A10">
+  <div class="finding-head">
+    <span class="point-id">A10</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">行动策略</span>
+  </div>
+  <h4>个人中心给出状态相关动作</h4>
+  <dl>
+    <dt>目标区域</dt><dd>我的订单卡片</dd>
+    <dt>洞察</dt><dd>我的页面没有只展示订单列表，而是把待处理订单与审核投诉、联系商家、去支付等动作放在同一卡片内，适合高频回访。</dd>
+    <dt>证据</dt><dd>订单卡片内可见“待发货”“审核投诉”“联系商家”“去支付”等操作。</dd>
+    <dt>建议</dt><dd>个人中心应承担租赁履约入口，不只是资产列表；按状态露出最可能的下一步动作能减少用户返回订单详情的次数。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_025">
+  <div class="screen-media">
+    <a href="screens/screen_025.png" target="_blank" rel="noreferrer"><img src="screens/screen_025.png" alt="screen_025 账单详情页 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_025</p>
+    <h3>账单详情页</h3>
+    
+<article class="finding" id="A11">
+  <div class="finding-head">
+    <span class="point-id">A11</span>
+    <span class="badge badge-medium">中风险</span>
+    <span class="cat">决策成本</span>
+  </div>
+  <h4>账单可分期选择，但未选中时支付意图不够明确</h4>
+  <dl>
+    <dt>目标区域</dt><dd>分期账单选择与支付栏</dd>
+    <dt>洞察</dt><dd>账单页清楚列出每期租金、优惠和计划付款时间；但默认未勾选时底部总计为 ¥0.00，同时仍有强主按钮“去支付”，会让用户需要额外判断是否必须先选期数。</dd>
+    <dt>证据</dt><dd>1/3、2/3、3/3 期均有单选圆点和待支付状态，底部显示“总计：¥0.00 / 去支付”。</dd>
+    <dt>建议</dt><dd>未选择账单时可禁用主按钮或默认选中最早到期一期，并把“可提前支付租金”转化为明确选择提示。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_027">
+  <div class="screen-media">
+    <a href="screens/screen_027.png" target="_blank" rel="noreferrer"><img src="screens/screen_027.png" alt="screen_027 租赁服务协议页 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_027</p>
+    <h3>租赁服务协议页</h3>
+    
+<article class="finding" id="A12">
+  <div class="finding-head">
+    <span class="point-id">A12</span>
+    <span class="badge badge-high">高风险</span>
+    <span class="cat">信任与风险</span>
+  </div>
+  <h4>协议页承载完整合规内容，但缺少阅读导航</h4>
+  <dl>
+    <dt>目标区域</dt><dd>完整协议阅读页</dd>
+    <dt>洞察</dt><dd>完整协议页面对商家、平台、订单、收货、违约等条款有全面描述，但移动端长文没有目录、摘要或重点标记，用户很难在下单前抓住关键风险。</dd>
+    <dt>证据</dt><dd>协议页为连续长文，顶部仅有标题“协议”，正文密集展示租赁服务协议条款。</dd>
+    <dt>建议</dt><dd>在协议页顶部加入“你需要重点知道的 5 件事”和章节锚点；完整条款保留，但先服务用户理解。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+<section class="screen-card" id="screen_032">
+  <div class="screen-media">
+    <a href="screens/screen_032.png" target="_blank" rel="noreferrer"><img src="screens/screen_032.png" alt="screen_032 租金付款计划弹窗 截图"></a>
+  </div>
+  <div class="screen-notes">
+    <p class="eyebrow">screen_032</p>
+    <h3>租金付款计划弹窗</h3>
+    
+<article class="finding" id="A13">
+  <div class="finding-head">
+    <span class="point-id">A13</span>
+    <span class="badge badge-positive">可借鉴</span>
+    <span class="cat">业务规则外显</span>
+  </div>
+  <h4>费用拆解支持向下钻取</h4>
+  <dl>
+    <dt>目标区域</dt><dd>付款计划明细弹窗</dd>
+    <dt>洞察</dt><dd>在账单/确认订单分支中，用户可以查看每期扣款计划、优惠前金额和具体日期，补足了下单页无法承载的明细。</dd>
+    <dt>证据</dt><dd>弹窗显示“租金总额 ¥486.00（优惠前 ¥540.00）”、第 1/2/3 期、日期和每期 ¥162.00。</dd>
+    <dt>建议</dt><dd>保留这种向下钻取，但入口文案要直接说明它解释的是付款计划，而不是泛化的金额详情。</dd>
+  </dl>
+</article>
+  </div>
+</section>
+
+      <h2 id="patterns">7. 值得学习的模式</h2>
+      <section class="section list-card"><ul><li>决策摘要前置：在商品详情和确认订单里持续展示租期、租金、免押和租后方案，降低用户进入下单的心理门槛。</li>
+<li>租赁状态专门化：状态链路围绕“审核、发货、签收使用、归还/买断/续租”设计，而不是简单复用电商订单状态。</li>
+<li>信用背书可视化：芝麻信用分、免押金额和服务商保障形成信任闭环，适合高客单、需履约的租赁业务。</li>
+<li>后置解释入口：账单、付款计划、优惠合计、协议和交易快照可以被下钻查看，减少主流程一次性承载过多细节。</li></ul></section>
+
+      <h2 id="risks">8. 风险与行动建议</h2>
+      <section class="section twocol">
+        <div class="list-card"><h3>需要避免的风险</h3><ul><li>不要只用低日租价吸引点击。租赁用户最终决策看的是首期现金流、总租金、押金风险和违约责任。</li>
+<li>不要把关键责任全部交给协议长文。移动端长文可作为完整依据，但不能替代可执行摘要。</li>
+<li>不要把审核状态做成单纯等待。用户需要知道为什么卡住、谁处理、多久处理、自己能做什么。</li>
+<li>不要让账单支付按钮在无选择状态下保持强可点感。支付类动作需要清楚表达当前金额和选择来源。</li></ul></div>
+        <div class="list-card"><h3>行动建议</h3><ol><li>建立一套贯穿全流程的租赁费用摘要组件：首期应付、剩余分期、总租金、免押金额、可能扣费责任。</li>
+<li>为每个订单状态定义统一解释模型：当前状态、原因、预计时间、用户下一步、商家/平台下一步、客服入口。</li>
+<li>将协议和违约责任拆成“双层阅读”：上层是责任摘要表，下层是完整协议原文。</li>
+<li>在账单页优化选择逻辑：默认选中最早应付账单，或未选中时禁用支付按钮并明确提示。</li>
+<li>把个人中心作为履约工作台，而不仅是订单入口；按状态显示审核、联系商家、支付、查看物流、归还等动作。</li></ol></div>
+      </section>
+
+      <h2 id="appendix">9. 附录：检测置信度与未解决歧义</h2>
+      <section class="section list-card"><ul><li>自动切屏结果是否完整。</li>
+<li>OCR / VLM 读取到的文案是否准确。</li>
+<li>标注框是否准确落在对应 UI 元素上。</li>
+<li>业务判断是否只基于可见界面信息和用户提供上下文。</li>
+<li>本次自动检测到 33 个屏幕，视觉检查未发现明显错切；但 PDF 原图文字较小，部分超小字号文案仍建议人工复核。</li>
+<li>本报告没有判断实际合规性，只分析界面中可见的提示、解释和用户理解成本。</li></ul></section>
+
+      <footer>相关文件：<a href="analysis_points.json">analysis_points.json</a> · <a href="screen_manifest.json">screen_manifest.json</a> · <a href="contact_sheet.png">contact_sheet.png</a> · <a href="report.md">report.md</a></footer>
+    </main>
+  </div>
+</body>
+</html>

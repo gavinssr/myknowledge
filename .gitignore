@@ -1,0 +1,11 @@
+.DS_Store
+**/.DS_Store
+
+# Local Python environments
+.venv/
+.venv-*/
+**/.venv/
+**/.venv-*/
+
+# Nested repository metadata copied into knowledge folders
+**/.git/

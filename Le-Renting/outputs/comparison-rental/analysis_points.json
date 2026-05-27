@@ -1,0 +1,306 @@
+{
+  "project": "comparison-rental",
+  "source_file": "inputs/竞品对比-260526.pdf",
+  "summary": {
+    "competitor": "Renrenzu / Zhima Leasing / Zuzule",
+    "flow_name": "租赁商品详情到订单与账单流程横向竞品对比",
+    "overall_assessment": "三家产品在同一租赁链路里各自代表了不同取向：Renrenzu 强在交易安全、平台保障和规则解释，但促销、告警、协议与长文本密度过高；Zhima Leasing 强在轻量决策、信用免押和阶段性任务清晰，但细节深度相对依赖后续页面；Zuzule 已有更干净的视觉层级和相对完整的价格/订单/账单结构，但需要把“为什么可信、为什么免押、下一步会发生什么、费用如何被计算”更早、更贴近关键 CTA 地表达出来。",
+    "primary_takeaways": [
+      "Zuzule 不应该简单学习 Renrenzu 的信息堆叠，而应该吸收其“保障、风险、规则可见”的能力，并用更分层的方式表达。",
+      "Zuzule 可以重点学习 Zhima Leasing 的轻量规格确认、清晰底部 CTA 和分期账单表达，让用户在每一步都知道当前任务和下一步结果。",
+      "当前 Zuzule 的核心短板不是视觉复杂，而是决策上下文不足：价格、押金、免押、审核、扣款、归还等关键规则没有形成一条连续的信任链。"
+    ],
+    "design_opportunities": [
+      "在 Zuzule 商品详情首屏和 CTA 附近增加“租前/租中/租后”三段式保障说明，避免把信任信息埋到详情深处。",
+      "在规格页把押金、信用免押、首期支付、剩余租金、总租金做成可解释的费用构成卡，而不是只给金额结果。",
+      "在订单详情和账单详情中统一时间轴语言，把审核、付款、起租、到期、归还、自动扣款放进同一套状态模型。"
+    ]
+  },
+  "points": [
+    {
+      "point_id": "A1",
+      "scenario": "商品详情页",
+      "screen_id": "screen_001",
+      "screen_name": "商品详情页 - Renrenzu",
+      "competitor": "Renrenzu",
+      "category": "trust_and_risk",
+      "severity": "positive",
+      "target": "商品保障与租赁规则说明区",
+      "title": "保障和规则解释非常充分，但页面负担也最高",
+      "insight": "Renrenzu 把平台担保、服务标准、隐私保障、发货签收、损坏赔偿、买断续租等规则大量前置或展开，能降低租赁交易的不确定性。",
+      "evidence": "商品详情页中可见“平台担保”“商品发货说明”“关于租用服务设备说明”“温馨提示”等长段说明，并在底部继续出现店铺推荐和下单 CTA。",
+      "recommendation": "Zuzule 应学习其规则可见性，但要改成分层摘要加展开详情，避免把信任建设变成阅读负担。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [145, 1390, 554, 2460]
+      },
+      "global_anchor_bbox": [145, 1390, 554, 2460]
+    },
+    {
+      "point_id": "A2",
+      "scenario": "商品详情页",
+      "screen_id": "screen_002",
+      "screen_name": "商品详情页 - Zhima Leasing",
+      "competitor": "Zhima Leasing",
+      "category": "flow_logic",
+      "severity": "positive",
+      "target": "租赁说明与常见问题区",
+      "title": "流程解释从下单到归还形成连续心智",
+      "insight": "Zhima Leasing 把“选择租期下单、商家发货、签收使用、续/买/归还”等步骤做成流程化说明，用户更容易理解租赁不是一次性购买。",
+      "evidence": "页面中可见“租赁说明”步骤条、“租后方案”“常见问题”，并有固定底部“去免押租”CTA。",
+      "recommendation": "Zuzule 可在详情页增加一条轻量流程带，解释起租、支付、归还、续租和买断，让用户在下单前建立完整预期。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [610, 1480, 1019, 2920]
+      },
+      "global_anchor_bbox": [610, 1480, 1019, 2920]
+    },
+    {
+      "point_id": "A3",
+      "scenario": "商品详情页",
+      "screen_id": "screen_004",
+      "screen_name": "商品详情页 - Zuzule",
+      "competitor": "Zuzule",
+      "category": "information_architecture",
+      "severity": "high",
+      "target": "商品详情首段与底部 CTA 之间的信息结构",
+      "title": "Zuzule 视觉更干净，但信任与规则解释不足",
+      "insight": "Zuzule 的详情页更像常规电商商品页：图片、价格、规格、评价、详情和推荐都有，但租赁特有的风险、押金、归还、损坏、续租等解释不够靠近关键决策点。",
+      "evidence": "页面可见价格梯度、租期、配送、商家、用户评价、商品详情和底部“免押租”，但未在 CTA 附近集中解释租赁保障和费用规则。",
+      "recommendation": "在 Zuzule 详情页 CTA 上方增加“免押说明 + 租赁流程 + 归还/损坏规则”三段摘要，并保留详情展开入口。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [1075, 930, 1484, 1388]
+      },
+      "global_anchor_bbox": [1075, 930, 1484, 1388]
+    },
+    {
+      "point_id": "A4",
+      "scenario": "商详页一屏",
+      "screen_id": "screen_005",
+      "screen_name": "商详页一屏 - Renrenzu",
+      "competitor": "Renrenzu",
+      "category": "visual_hierarchy",
+      "severity": "medium",
+      "target": "首屏促销与价格区",
+      "title": "促销强刺激抢占首屏，核心价格被噪声包围",
+      "insight": "Renrenzu 首屏转化感强，但双券、补贴、标签、担保、优惠门槛同时出现，会让用户先处理活动规则，而不是先理解租赁方案。",
+      "evidence": "首屏出现“双券叠加”“首月立减”“全租期立减”“券后价”等多层促销信息。",
+      "recommendation": "Zuzule 若做促销，不应压过租金、租期、押金和免押解释；可以把活动折扣作为价格明细的一行，而不是做成独立视觉主角。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [1749, 590, 2157, 820]
+      },
+      "global_anchor_bbox": [1749, 590, 2157, 820]
+    },
+    {
+      "point_id": "A5",
+      "scenario": "商详页一屏",
+      "screen_id": "screen_006",
+      "screen_name": "商详页一屏 - Zhima Leasing",
+      "competitor": "Zhima Leasing",
+      "category": "decision_cost",
+      "severity": "positive",
+      "target": "价格梯度、信用免押与商家信任区",
+      "title": "首屏用价格梯度和免押承诺降低决策成本",
+      "insight": "Zhima Leasing 把不同租期价格、信用免押、收藏/浏览量、商家保证金和配送预期放在一个短首屏内，用户能快速判断是否继续。",
+      "evidence": "首屏可见 3/7/30/90 天价格、信用免押、商家保证金、预计送达和底部“去免押租”。",
+      "recommendation": "Zuzule 可以保留自身的干净结构，同时补一个“为什么可免押、预计何时送达、商家是否可信”的轻量信息条。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [2214, 650, 2622, 1045]
+      },
+      "global_anchor_bbox": [2214, 650, 2622, 1045]
+    },
+    {
+      "point_id": "A6",
+      "scenario": "商详页一屏",
+      "screen_id": "screen_007",
+      "screen_name": "商详页一屏 - Zuzule",
+      "competitor": "Zuzule",
+      "category": "cta_strategy",
+      "severity": "medium",
+      "target": "首屏价格、选择项与 CTA",
+      "title": "首屏清爽，但 CTA 前缺少“下单后会怎样”的承诺",
+      "insight": "Zuzule 首屏信息秩序最好，商品图和价格梯度清晰，但底部“免押租”按钮没有承接审核、扣款、起租、归还等后续流程预期。",
+      "evidence": "页面可见租期价格、租中质保、租后无忧、选择项和底部“免押租”，但没有类似流程带或预计送达提示。",
+      "recommendation": "在 CTA 附近增加一句低干扰承诺，例如“提交后进入信用审核，审核通过后自动扣款/发货”，把点击风险讲清楚。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [2679, 760, 3087, 1189]
+      },
+      "global_anchor_bbox": [2679, 760, 3087, 1189]
+    },
+    {
+      "point_id": "A7",
+      "scenario": "规格页",
+      "screen_id": "screen_008",
+      "screen_name": "规格页 - Renrenzu",
+      "competitor": "Renrenzu",
+      "category": "business_rule_exposure",
+      "severity": "positive",
+      "target": "规格页费用与规则说明",
+      "title": "规则暴露完整，适合高风险租赁但需要减负",
+      "insight": "Renrenzu 在规格页直接暴露收货地址、优惠、首期租金、总租金、到期可申请购买、押金解释、租期、协议确认和刷脸验证，覆盖了下单前的大部分风险。",
+      "evidence": "规格页可见首期租金、总租金、到期可申请购买、租金说明、租期、库存、协议勾选和“请完成刷脸哦”。",
+      "recommendation": "Zuzule 可学习其把高风险规则放到付款前，但应拆成“必读摘要”和“详情解释”，避免一个规格页承担所有教育任务。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [3352, 520, 3761, 1826]
+      },
+      "global_anchor_bbox": [3352, 520, 3761, 1826]
+    },
+    {
+      "point_id": "A8",
+      "scenario": "规格页",
+      "screen_id": "screen_009",
+      "screen_name": "规格页 - Zhima Leasing",
+      "competitor": "Zhima Leasing",
+      "category": "conversion_pattern",
+      "severity": "positive",
+      "target": "底部规格选择面板",
+      "title": "规格确认面板紧凑，行动路径很短",
+      "insight": "Zhima Leasing 使用底部面板承载价格、租期、地址、套餐、日期和确认按钮，信息密度适中，适合快速完成租赁配置。",
+      "evidence": "规格页可见商品价格、租 90 天总租金、到期买断尾款、收货方式、租赁方案、租期、起止日期和底部“确认”。",
+      "recommendation": "Zuzule 的规格页可以借鉴这种“配置面板”结构，但要保留自身更完整的价格明细优势。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [3817, 790, 4226, 1357]
+      },
+      "global_anchor_bbox": [3817, 790, 4226, 1357]
+    },
+    {
+      "point_id": "A9",
+      "scenario": "规格页",
+      "screen_id": "screen_010",
+      "screen_name": "规格页 - Zuzule",
+      "competitor": "Zuzule",
+      "category": "trust_and_risk",
+      "severity": "high",
+      "target": "价格明细与押金信息",
+      "title": "价格明细清楚，但高额押金需要更强解释",
+      "insight": "Zuzule 把首期实付、剩余租金、总租金、运费、押金和买断尾款集中展示，这对信任有价值；但“押金 ¥10890 / 信用免押”的关系如果没有解释，会制造显著心理压力。",
+      "evidence": "规格页可见总租金 ¥1705.65、押金 ¥10890、到期买断尾款 ¥13888，并有“租用乐用户服务协议”和“确认，去免押”。",
+      "recommendation": "在押金行增加“信用评估后预计可免/需付”的状态解释，并把确认按钮文案从单纯动作升级为“确认并提交免押审核”。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [4282, 920, 4690, 1260]
+      },
+      "global_anchor_bbox": [4282, 920, 4690, 1260]
+    },
+    {
+      "point_id": "A10",
+      "scenario": "下单后/订单详情页",
+      "screen_id": "screen_003",
+      "screen_name": "下单后/订单详情页 - Renrenzu",
+      "competitor": "Renrenzu",
+      "category": "state_feedback",
+      "severity": "medium",
+      "target": "订单状态、费用与违约说明",
+      "title": "状态和规则完整，但用户会被大量风险信息压住",
+      "insight": "Renrenzu 在订单详情页把待付款倒计时、押金减免、进度条、地址、费用、冻结押金、买断价、交易快照、协议和违约责任都放在同页，保障强但阅读压力大。",
+      "evidence": "页面可见“待付款，剩余 00:56:19”、订单进度、费用区、冻结押金、到期可申请购买、关于违约长文和底部去付款。",
+      "recommendation": "Zuzule 应保留订单状态和费用透明，但把违约/协议做成可展开模块，默认只呈现与当前付款决策直接相关的三件事。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [4955, 560, 5364, 2420]
+      },
+      "global_anchor_bbox": [4955, 560, 5364, 2420]
+    },
+    {
+      "point_id": "A11",
+      "scenario": "下单后/订单详情页",
+      "screen_id": "screen_011",
+      "screen_name": "下单后/订单详情页 - Zhima Leasing",
+      "competitor": "Zhima Leasing",
+      "category": "state_feedback",
+      "severity": "positive",
+      "target": "审核状态与底部操作",
+      "title": "审核状态表达直接，客服兜底明显",
+      "insight": "Zhima Leasing 的订单页把“已签约待审核”和“将在 2 个工作日内审核”放在页面顶部，同时给出联系客服入口，能降低用户等待焦虑。",
+      "evidence": "页面顶部显示“已签约待审核”“将在2个工作日内审核，请耐心等待”，并提供“联系客服”按钮和底部“取消/账单/去认证”。",
+      "recommendation": "Zuzule 可以学习其等待状态文案，把审核责任、预计时长和用户可做动作说清楚。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [5420, 500, 5829, 820]
+      },
+      "global_anchor_bbox": [5420, 500, 5829, 820]
+    },
+    {
+      "point_id": "A12",
+      "scenario": "下单后/订单详情页",
+      "screen_id": "screen_012",
+      "screen_name": "下单后/订单详情页 - Zuzule",
+      "competitor": "Zuzule",
+      "category": "flow_logic",
+      "severity": "high",
+      "target": "审核中状态与付款 CTA",
+      "title": "“审核中”和“现在付款”之间的因果需要更明确",
+      "insight": "Zuzule 的订单页费用结构清楚，但页面同时出现“审核中、完成审核后将自动扣款”和底部“现在付款”，容易让用户不确定当前到底是等待审核还是需要主动支付。",
+      "evidence": "页面顶部显示“审核中 完成审核后将自动扣款”，底部仍显示主按钮“现在付款”。",
+      "recommendation": "根据订单状态切换主按钮：审核中应为“等待审核/查看审核说明”，需要补缴时才显示“现在付款”，并在费用区说明自动扣款触发条件。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [5885, 500, 6294, 1318]
+      },
+      "global_anchor_bbox": [5885, 500, 6294, 1318]
+    },
+    {
+      "point_id": "A13",
+      "scenario": "账单详情页",
+      "screen_id": "screen_013",
+      "screen_name": "账单详情页 - Renrenzu",
+      "competitor": "Renrenzu",
+      "category": "visual_hierarchy",
+      "severity": "medium",
+      "target": "账单总额与分期列表",
+      "title": "账单信息全，但金额层级和状态弱化过度",
+      "insight": "Renrenzu 展示账单总计、已支付、待支付金额和多期租金，但已支付项被大面积弱化，用户需要额外计算才能理解欠款构成。",
+      "evidence": "页面可见待支付金额 ¥0.01、账单总计、已支付，以及第 1-4 期租金列表，多项为灰色低对比状态。",
+      "recommendation": "Zuzule 的账单不应只做低对比历史列表，而应把“已付、待付、下一次要付”三个金额明确分层。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [6707, 560, 7117, 1190]
+      },
+      "global_anchor_bbox": [6707, 560, 7117, 1190]
+    },
+    {
+      "point_id": "A14",
+      "scenario": "账单详情页",
+      "screen_id": "screen_014",
+      "screen_name": "账单详情页 - Zhima Leasing",
+      "competitor": "Zhima Leasing",
+      "category": "conversion_pattern",
+      "severity": "positive",
+      "target": "分期账单卡片",
+      "title": "分期卡片把可操作账单表达得很轻",
+      "insight": "Zhima Leasing 账单页用每期卡片呈现金额、优惠、计划付款时间和状态，用户能快速找到待支付项。",
+      "evidence": "页面可见 1/3 期已支付，2/3、3/3 期待支付，每期有金额和计划付款时间。",
+      "recommendation": "Zuzule 可学习这种“每期一张任务卡”的清晰度，尤其适合多期租金和手动支付场景。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [7173, 650, 7581, 1120]
+      },
+      "global_anchor_bbox": [7173, 650, 7581, 1120]
+    },
+    {
+      "point_id": "A15",
+      "scenario": "账单详情页",
+      "screen_id": "screen_015",
+      "screen_name": "账单详情页 - Zuzule",
+      "competitor": "Zuzule",
+      "category": "state_feedback",
+      "severity": "high",
+      "target": "分期时间轴与支付状态",
+      "title": "时间轴结构好，但扣款时间表达存在一致性风险",
+      "insight": "Zuzule 用时间轴表达首期、2期、3期和去支付按钮，结构清晰；但可见的预计扣款时间与租期/分期顺序不够一致，可能造成账单信任问题。",
+      "evidence": "页面显示待支付租金 ¥1,137.1，首期已支付，2期和3期均有“去支付”；部分预计扣款时间显示为 2026.05.06，而页面顶部预估租期为 2026.5.13 - 2026.7.13。",
+      "recommendation": "统一账单时间模型：每期应同时展示所属周期、应付日、自动扣款日和手动支付状态，避免出现早于租期或重复的扣款日期。",
+      "anchor": {
+        "type": "global_bbox",
+        "value": [7638, 620, 8046, 1160]
+      },
+      "global_anchor_bbox": [7638, 620, 8046, 1160]
+    }
+  ]
+}

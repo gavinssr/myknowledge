@@ -1,0 +1,573 @@
+{
+  "source_file": "/Users/gavinss/Desktop/Lexin/租机业务/竞品分析/人人租.pdf",
+  "canvas_path": "canvas.png",
+  "canvas_width": 8192,
+  "canvas_height": 4805,
+  "screen_count": 28,
+  "screens": [
+    {
+      "screen_id": "screen_001",
+      "global_bbox": [
+        128,
+        545,
+        471,
+        2228
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        1683
+      ],
+      "crop_path": "screens/screen_001.png",
+      "width": 343,
+      "height": 1683,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_002",
+      "global_bbox": [
+        634,
+        414,
+        977,
+        2298
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        1884
+      ],
+      "crop_path": "screens/screen_002.png",
+      "width": 343,
+      "height": 1884,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_003",
+      "global_bbox": [
+        634,
+        2792,
+        977,
+        3879
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        1087
+      ],
+      "crop_path": "screens/screen_003.png",
+      "width": 343,
+      "height": 1087,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_004",
+      "global_bbox": [
+        1452,
+        380,
+        1795,
+        1647
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        1267
+      ],
+      "crop_path": "screens/screen_004.png",
+      "width": 343,
+      "height": 1267,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_005",
+      "global_bbox": [
+        1452,
+        2033,
+        1795,
+        2771
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        738
+      ],
+      "crop_path": "screens/screen_005.png",
+      "width": 343,
+      "height": 738,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_006",
+      "global_bbox": [
+        1452,
+        2957,
+        1795,
+        3695
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        738
+      ],
+      "crop_path": "screens/screen_006.png",
+      "width": 343,
+      "height": 738,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_007",
+      "global_bbox": [
+        1966,
+        2033,
+        2309,
+        2771
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        738
+      ],
+      "crop_path": "screens/screen_007.png",
+      "width": 343,
+      "height": 738,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_008",
+      "global_bbox": [
+        2216,
+        380,
+        2559,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        736
+      ],
+      "crop_path": "screens/screen_008.png",
+      "width": 343,
+      "height": 736,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_009",
+      "global_bbox": [
+        2479,
+        2033,
+        2822,
+        2771
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        738
+      ],
+      "crop_path": "screens/screen_009.png",
+      "width": 343,
+      "height": 738,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_010",
+      "global_bbox": [
+        2641,
+        379,
+        2984,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        737
+      ],
+      "crop_path": "screens/screen_010.png",
+      "width": 343,
+      "height": 737,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_011",
+      "global_bbox": [
+        3050,
+        379,
+        3393,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        737
+      ],
+      "crop_path": "screens/screen_011.png",
+      "width": 343,
+      "height": 737,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_012",
+      "global_bbox": [
+        3467,
+        658,
+        3810,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        458
+      ],
+      "crop_path": "screens/screen_012.png",
+      "width": 343,
+      "height": 458,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_013",
+      "global_bbox": [
+        3884,
+        380,
+        4227,
+        2143
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        1763
+      ],
+      "crop_path": "screens/screen_013.png",
+      "width": 343,
+      "height": 1763,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_014",
+      "global_bbox": [
+        4656,
+        2208,
+        4999,
+        2944
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        736
+      ],
+      "crop_path": "screens/screen_014.png",
+      "width": 343,
+      "height": 736,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_015",
+      "global_bbox": [
+        4656,
+        3057,
+        4999,
+        3793
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        736
+      ],
+      "crop_path": "screens/screen_015.png",
+      "width": 343,
+      "height": 736,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_016",
+      "global_bbox": [
+        4685,
+        379,
+        5029,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        344,
+        737
+      ],
+      "crop_path": "screens/screen_016.png",
+      "width": 344,
+      "height": 737,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_017",
+      "global_bbox": [
+        4686,
+        1290,
+        5029,
+        2025
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        735
+      ],
+      "crop_path": "screens/screen_017.png",
+      "width": 343,
+      "height": 735,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_018",
+      "global_bbox": [
+        4691,
+        4132,
+        4964,
+        4520
+      ],
+      "local_bbox": [
+        0,
+        0,
+        273,
+        388
+      ],
+      "crop_path": "screens/screen_018.png",
+      "width": 273,
+      "height": 388,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_019",
+      "global_bbox": [
+        5040,
+        379,
+        5383,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        737
+      ],
+      "crop_path": "screens/screen_019.png",
+      "width": 343,
+      "height": 737,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_020",
+      "global_bbox": [
+        5050,
+        4143,
+        5393,
+        4685
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        542
+      ],
+      "crop_path": "screens/screen_020.png",
+      "width": 343,
+      "height": 542,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_021",
+      "global_bbox": [
+        5103,
+        1290,
+        5446,
+        2026
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        736
+      ],
+      "crop_path": "screens/screen_021.png",
+      "width": 343,
+      "height": 736,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_022",
+      "global_bbox": [
+        5444,
+        4114,
+        5787,
+        4685
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        571
+      ],
+      "crop_path": "screens/screen_022.png",
+      "width": 343,
+      "height": 571,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_023",
+      "global_bbox": [
+        5656,
+        380,
+        5999,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        736
+      ],
+      "crop_path": "screens/screen_023.png",
+      "width": 343,
+      "height": 736,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_024",
+      "global_bbox": [
+        5815,
+        4114,
+        6158,
+        4685
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        571
+      ],
+      "crop_path": "screens/screen_024.png",
+      "width": 343,
+      "height": 571,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_025",
+      "global_bbox": [
+        6170,
+        379,
+        6513,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        737
+      ],
+      "crop_path": "screens/screen_025.png",
+      "width": 343,
+      "height": 737,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_026",
+      "global_bbox": [
+        6314,
+        3949,
+        6657,
+        4685
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        736
+      ],
+      "crop_path": "screens/screen_026.png",
+      "width": 343,
+      "height": 736,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_027",
+      "global_bbox": [
+        6683,
+        379,
+        7026,
+        1116
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        737
+      ],
+      "crop_path": "screens/screen_027.png",
+      "width": 343,
+      "height": 737,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    },
+    {
+      "screen_id": "screen_028",
+      "global_bbox": [
+        7369,
+        380,
+        7712,
+        2866
+      ],
+      "local_bbox": [
+        0,
+        0,
+        343,
+        2486
+      ],
+      "crop_path": "screens/screen_028.png",
+      "width": 343,
+      "height": 2486,
+      "detection_method": "brightness_contour",
+      "confidence": 0.72
+    }
+  ],
+  "notes": [
+    "Review screen detection before analysis. Auto-detection is not a substitute for visual QA.",
+    "If boxes are missing or wrong, manually edit global_bbox values in this manifest before running annotation rendering."
+  ]
+}

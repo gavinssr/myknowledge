@@ -1,0 +1,182 @@
+{
+  "canvas": "canvas.png",
+  "manifest": "screen_manifest.json",
+  "annotations": [
+    {
+      "point_id": "A1",
+      "screen_id": "screen_001",
+      "global_anchor_bbox": [
+        140,
+        720,
+        460,
+        1195
+      ],
+      "title": "用类目和热租榜降低首次浏览成本"
+    },
+    {
+      "point_id": "A2",
+      "screen_id": "screen_001",
+      "global_anchor_bbox": [
+        136,
+        545,
+        466,
+        1925
+      ],
+      "title": "首屏信息密度高，品牌和促销互相抢注意力"
+    },
+    {
+      "point_id": "A3",
+      "screen_id": "screen_002",
+      "global_anchor_bbox": [
+        649,
+        699,
+        967,
+        1024
+      ],
+      "title": "把低日租、优惠券和信用免押放在决策起点"
+    },
+    {
+      "point_id": "A4",
+      "screen_id": "screen_002",
+      "global_anchor_bbox": [
+        642,
+        1494,
+        970,
+        2229
+      ],
+      "title": "关键履约条件离下单动作太远"
+    },
+    {
+      "point_id": "A5",
+      "screen_id": "screen_004",
+      "global_anchor_bbox": [
+        1462,
+        500,
+        1788,
+        735
+      ],
+      "title": "低日租和总成本之间的换算压力大"
+    },
+    {
+      "point_id": "A6",
+      "screen_id": "screen_004",
+      "global_anchor_bbox": [
+        1457,
+        1525,
+        1790,
+        1644
+      ],
+      "title": "去免押 CTA 承担了下单、授信和协议确认三件事"
+    },
+    {
+      "point_id": "A7",
+      "screen_id": "screen_007",
+      "global_anchor_bbox": [
+        1974,
+        2118,
+        2303,
+        2718
+      ],
+      "title": "实名收货规则出现得及时，但修复路径被拆散"
+    },
+    {
+      "point_id": "A8",
+      "screen_id": "screen_008",
+      "global_anchor_bbox": [
+        2231,
+        515,
+        2546,
+        790
+      ],
+      "title": "免押前解释授权对象，降低信任成本"
+    },
+    {
+      "point_id": "A9",
+      "screen_id": "screen_013",
+      "global_anchor_bbox": [
+        3894,
+        430,
+        4217,
+        625
+      ],
+      "title": "订单状态把用户下一步和剩余时间说清楚"
+    },
+    {
+      "point_id": "A10",
+      "screen_id": "screen_013",
+      "global_anchor_bbox": [
+        3894,
+        1560,
+        4217,
+        2095
+      ],
+      "title": "法律与违约说明完整但阅读负担很重"
+    },
+    {
+      "point_id": "A11",
+      "screen_id": "screen_014",
+      "global_anchor_bbox": [
+        4668,
+        2383,
+        4988,
+        2568
+      ],
+      "title": "反欺诈提示强势，但会压过付款决策信息"
+    },
+    {
+      "point_id": "A12",
+      "screen_id": "screen_017",
+      "global_anchor_bbox": [
+        4691,
+        1370,
+        5024,
+        1940
+      ],
+      "title": "账单聚合有用，但订单识别信息不足"
+    },
+    {
+      "point_id": "A13",
+      "screen_id": "screen_022",
+      "global_anchor_bbox": [
+        5454,
+        4204,
+        5777,
+        4624
+      ],
+      "title": "归还前把证据要求图像化，能减少纠纷"
+    },
+    {
+      "point_id": "A14",
+      "screen_id": "screen_026",
+      "global_anchor_bbox": [
+        6322,
+        4234,
+        6651,
+        4639
+      ],
+      "title": "运费总价和可选服务的费用关系不清"
+    },
+    {
+      "point_id": "A15",
+      "screen_id": "screen_024",
+      "global_anchor_bbox": [
+        5823,
+        4149,
+        6152,
+        4674
+      ],
+      "title": "证据上传可跳过，和风险提示形成冲突"
+    },
+    {
+      "point_id": "A16",
+      "screen_id": "screen_028",
+      "global_anchor_bbox": [
+        7379,
+        710,
+        7702,
+        1470
+      ],
+      "title": "待收货页把平台视频、签收证明和归还证明集中管理"
+    }
+  ]
+}

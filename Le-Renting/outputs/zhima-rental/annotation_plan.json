@@ -1,0 +1,168 @@
+{
+  "source": "analysis_points.json",
+  "canvas": "canvas.png",
+  "manifest": "screen_manifest.json",
+  "annotation_rules": [
+    "Use point_id labels A1-A13",
+    "Draw anchors from global_anchor_bbox when present",
+    "Keep full reasoning in report.md"
+  ],
+  "items": [
+    {
+      "point_id": "A1",
+      "screen_id": "screen_002",
+      "severity": "positive",
+      "title": "决策信息前置，先回答租赁是否划算",
+      "global_anchor_bbox": [
+        490,
+        466,
+        742,
+        896
+      ]
+    },
+    {
+      "point_id": "A2",
+      "screen_id": "screen_002",
+      "severity": "medium",
+      "title": "规则完整但阅读成本集中在长页中段",
+      "global_anchor_bbox": [
+        492,
+        911,
+        742,
+        1386
+      ]
+    },
+    {
+      "point_id": "A3",
+      "screen_id": "screen_004",
+      "severity": "positive",
+      "title": "配置决策被收敛到一个确认面板",
+      "global_anchor_bbox": [
+        860,
+        2167,
+        1148,
+        2702
+      ]
+    },
+    {
+      "point_id": "A4",
+      "screen_id": "screen_006",
+      "severity": "positive",
+      "title": "下单前清楚拆出首期、剩余租金和免押",
+      "global_anchor_bbox": [
+        1279,
+        2315,
+        1545,
+        2655
+      ]
+    },
+    {
+      "point_id": "A5",
+      "screen_id": "screen_007",
+      "severity": "medium",
+      "title": "免押价值清楚，但授权协议说明弱于主按钮",
+      "global_anchor_bbox": [
+        2006,
+        524,
+        2271,
+        854
+      ]
+    },
+    {
+      "point_id": "A6",
+      "screen_id": "screen_012",
+      "severity": "positive",
+      "title": "审核中解释了为什么需要个人信息",
+      "global_anchor_bbox": [
+        2745,
+        1225,
+        3034,
+        1565
+      ]
+    },
+    {
+      "point_id": "A7",
+      "screen_id": "screen_013",
+      "severity": "positive",
+      "title": "租用中状态持续暴露风险、担保和交易证据",
+      "global_anchor_bbox": [
+        2753,
+        2315,
+        3026,
+        2705
+      ]
+    },
+    {
+      "point_id": "A8",
+      "screen_id": "screen_013",
+      "severity": "high",
+      "title": "违约责任完整但难以快速形成行动判断",
+      "global_anchor_bbox": [
+        2757,
+        2900,
+        3023,
+        3845
+      ]
+    },
+    {
+      "point_id": "A9",
+      "screen_id": "screen_015",
+      "severity": "positive",
+      "title": "状态颗粒度贴合租赁履约链路",
+      "global_anchor_bbox": [
+        3073,
+        2145,
+        3341,
+        2260
+      ]
+    },
+    {
+      "point_id": "A10",
+      "screen_id": "screen_021",
+      "severity": "positive",
+      "title": "个人中心给出状态相关动作",
+      "global_anchor_bbox": [
+        3902,
+        496,
+        4162,
+        706
+      ]
+    },
+    {
+      "point_id": "A11",
+      "screen_id": "screen_025",
+      "severity": "medium",
+      "title": "账单可分期选择，但未选中时支付意图不够明确",
+      "global_anchor_bbox": [
+        4968,
+        526,
+        5229,
+        836
+      ]
+    },
+    {
+      "point_id": "A12",
+      "screen_id": "screen_027",
+      "severity": "high",
+      "title": "协议页承载完整合规内容，但缺少阅读导航",
+      "global_anchor_bbox": [
+        6012,
+        611,
+        6284,
+        1081
+      ]
+    },
+    {
+      "point_id": "A13",
+      "screen_id": "screen_032",
+      "severity": "positive",
+      "title": "费用拆解支持向下钻取",
+      "global_anchor_bbox": [
+        7494,
+        538,
+        7714,
+        723
+      ]
+    }
+  ]
+}
