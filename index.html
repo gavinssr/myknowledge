@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Knowledge Index</title>
+  <title>GavinSR的知识库</title>
   <style>
     :root {
       color-scheme: light;
@@ -118,6 +118,18 @@
       background: var(--surface-muted);
     }
 
+    .project-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .project-link:hover,
+    .project-link:focus-visible {
+      outline: 0;
+      background: #fbfaf7;
+    }
+
     .section-heading .section-title {
       padding: 0;
       border-bottom: 0;
@@ -138,6 +150,8 @@
       text-decoration: none;
     }
 
+    .project-link:hover .section-open-link,
+    .project-link:focus-visible .section-open-link,
     .section-open-link:hover,
     .section-open-link:focus-visible {
       outline: 0;
@@ -279,25 +293,31 @@
     }
 
     .open-link {
-      min-height: 38px;
-      padding: 0 13px;
-      border: 1px solid var(--accent);
-      border-radius: 6px;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 760;
+      background: transparent;
+      color: var(--accent-strong);
       text-decoration: none;
-      white-space: nowrap;
     }
 
     .open-link:hover,
     .open-link:focus-visible {
-      background: var(--accent-strong);
       outline: 0;
+      background: rgba(31, 111, 104, 0.08);
+      color: var(--accent);
+    }
+
+    .open-link svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      stroke: currentColor;
     }
 
     iframe {
@@ -352,14 +372,6 @@
         width: 100%;
       }
 
-      .section-heading {
-        grid-template-columns: 1fr;
-      }
-
-      .section-open-link {
-        width: 100%;
-      }
-
       .nav-item {
         grid-template-columns: 46px minmax(0, 1fr);
       }
@@ -376,12 +388,12 @@
     <aside class="sidebar" aria-label="知识库导航">
       <header class="masthead">
         <p class="eyebrow">My Knowledge</p>
-        <h1>知识库预览索引</h1>
+        <h1>GavinSR的知识库</h1>
         <p class="intro">选择左侧条目，在右侧切换预览；需要完整页面时，用新窗口打开。</p>
       </header>
 
       <section class="nav-section" aria-labelledby="docs-title">
-        <h2 class="section-title" id="docs-title">独立 HTML 文档</h2>
+        <h2 class="section-title" id="docs-title">Notes</h2>
         <div class="nav-list">
           <button class="nav-item is-active" type="button" data-title="开源项目贡献指南" data-src="opensource-contribution-guide.html">
             <span class="thumb doc">OS</span>
@@ -415,14 +427,14 @@
       </section>
 
       <section class="nav-section" aria-labelledby="renting-title">
-        <div class="section-heading">
-          <h2 class="section-title" id="renting-title">Le-Renting 预览项目</h2>
-          <a class="section-open-link" href="Le-Renting/index.html" target="_blank" rel="noreferrer" aria-label="独立窗口打开 Le-Renting">
+        <a class="section-heading project-link" href="Le-Renting/index.html" target="_blank" rel="noreferrer" aria-label="独立窗口打开 Le-Renting">
+          <h2 class="section-title" id="renting-title">Le-Renting</h2>
+          <span class="section-open-link" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </a>
-        </div>
+          </span>
+        </a>
       </section>
     </aside>
 
@@ -432,7 +444,11 @@
           <h2 class="preview-title" id="previewTitle">开源项目贡献指南</h2>
           <p class="preview-path" id="previewPath">opensource-contribution-guide.html</p>
         </div>
-        <a class="open-link" id="openLink" href="opensource-contribution-guide.html" target="_blank" rel="noreferrer">新窗口打开</a>
+        <a class="open-link" id="openLink" href="opensource-contribution-guide.html" target="_blank" rel="noreferrer" aria-label="新窗口打开当前预览">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 17 7M10 7h7v7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
       <iframe id="previewFrame" title="知识库页面预览" src="opensource-contribution-guide.html"></iframe>
     </section>
