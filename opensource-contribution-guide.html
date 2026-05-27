@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开源项目贡献指南：无构建步骤型前端项目</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --border: #e0e0e0;
+    --text: #2a2a2a;
+    --muted: #6b6b6b;
+    --accent: #c6246a;
+    --accent-light: #fce4f0;
+    --code-bg: #f4f4f4;
+    --warn-bg: #fff8e1;
+    --warn-border: #ffc107;
+    --danger-bg: #ffebee;
+    --danger-border: #ef5350;
+    --success-bg: #e8f5e9;
+    --success-border: #66bb6a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0 0 80px;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e, #241420);
+    color: #fff;
+    padding: 60px 24px 48px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    font-size: 15px;
+    opacity: 0.75;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .hero .badge {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.12);
+    font-size: 13px;
+    color: #f278ad;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Step cards */
+  .step {
+    counter-increment: step;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 28px 0;
+    padding: 28px 28px 24px;
+    position: relative;
+  }
+  .step::before {
+    content: counter(step);
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    background: var(--accent);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    padding-top: 4px;
+  }
+  .step p { margin-bottom: 10px; font-size: 14px; color: var(--text); }
+
+  /* Code blocks */
+  pre {
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 14px 18px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 10px 0 14px;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace;
+  }
+  code {
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace;
+    font-size: 13px;
+  }
+  p code, li code {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+
+  /* Callouts */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-light);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+  .callout strong { color: var(--accent); }
+  .callout.warn {
+    background: var(--warn-bg);
+    border-color: var(--warn-border);
+  }
+  .callout.warn strong { color: #e65100; }
+  .callout.danger {
+    background: var(--danger-bg);
+    border-color: var(--danger-border);
+  }
+  .callout.danger strong { color: #c62828; }
+  .callout.success {
+    background: var(--success-bg);
+    border-color: var(--success-border);
+  }
+  .callout.success strong { color: #2e7d32; }
+
+  /* Table of contents */
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+  }
+  .toc h2 { font-size: 15px; margin-bottom: 10px; }
+  .toc ol { padding-left: 20px; }
+  .toc li { font-size: 13.5px; margin-bottom: 4px; color: var(--accent); }
+  .toc li span { color: var(--muted); }
+
+  /* Lists */
+  ul, ol { padding-left: 20px; margin-bottom: 10px; }
+  li { font-size: 14px; margin-bottom: 4px; }
+
+  /* File change summary */
+  .file-list {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 16px;
+    font-size: 13px;
+    margin: 10px 0 14px;
+  }
+  .file-list .fn { font-family: monospace; }
+  .file-list .fc { color: var(--muted); text-align: right; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .tag.you { background: #e3f2fd; color: #1565c0; }
+  .tag.ai { background: #fce4ec; color: #c6246a; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>开源项目贡献指南</h1>
+  <p>无构建步骤的 HTML/CSS/JS 前端项目 — 皮肤、主题、纯样式 PR 通用流程</p>
+  <div class="badge">nesquena/hermes-webui 实操提炼</div>
+</div>
+
+<div class="container">
+
+<div class="toc">
+  <h2>流程概览</h2>
+  <ol>
+    <li><span>保存本地定制 · 创建干净分支</span></li>
+    <li><span>在新分支上应用要贡献的改动</span></li>
+    <li><span>启动项目 · 浏览器验证</span></li>
+    <li><span>测试中发现问题 → 定位原因 → 修改 → 再测</span></li>
+    <li><span>预检 + 提交</span></li>
+    <li><span>Fork 仓库 + 推送 + 开 PR</span></li>
+    <li><span>恢复本地完整定制</span></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 1 -->
+<!-- ============================================================ -->
+<div class="step">
+  <h3>保存本地定制 · 创建干净分支</h3>
+
+  <p><strong>目标：</strong>你的本地项目上有一堆自己用的改动（比如额外的按钮、自定义图标、本地优化），但你要贡献给上游的只是其中一个独立功能（比如一个新皮肤）。第一步就是把所有改动"寄存"起来，从干净起点开始。</p>
+
+  <pre>cd ~/your-project
+git stash push -m "all local customizations"
+git checkout -b feat/my-feature</pre>
+
+  <div class="callout">
+    <strong>git stash push -m "…”</strong><br>
+    把工作区所有未提交的改动（已修改文件 + 新增文件）打包进一个临时存储区，工作区恢复到和最新 commit 完全一致。你的改动没有丢，只是"寄存"了。<br><br>
+    <strong>git checkout -b feat/my-feature</strong><br>
+    同时创建并切换到新分支。<code>-b</code> = <code>git branch</code> + <code>git checkout</code> 的快捷方式。PR 必须来自独立分支，不能直接在 master 上提交。
+  </div>
+
+  <div class="callout warn">
+    <strong>常见异常</strong><br>
+    如果终端提示 <code>error: Your local changes to the following files would be overwritten by checkout</code>，说明有改动没 stash。先执行 <code>git stash</code> 再重试。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 2 -->
+<!-- ============================================================ -->
+<div class="step">
+  <h3>在新分支上应用要贡献的改动</h3>
+
+  <p><strong>本项目改动了 4 个文件：</strong></p>
+  <div class="file-list">
+    <div class="fn"><code>static/style.css</code></div><div class="fc">+46 行，Hepburn 皮肤 CSS</div>
+    <div class="fn"><code>static/boot.js</code></div><div class="fc">+1 行，皮肤注册</div>
+    <div class="fn"><code>static/index.html</code></div><div class="fc">+1 行，内联白名单</div>
+    <div class="fn"><code>static/panels.js</code></div><div class="fc">+2/-2 行，下拉框回显修复</div>
+  </div>
+
+  <p><strong>操作方式</strong> — 用你最顺手的编辑器打开文件修改。纯 CSS/JS 项目没有构建步骤，改了直接生效。</p>
+
+  <div class="callout">
+    <strong>关键原则：只带要贡献的内容</strong><br>
+    你的本地定制（shutdown 按钮、自定义图标等）不要带进 PR。如果某个文件既有皮肤改动又有本地改动，只取皮肤那部分。修改前先看清楚哪些行是皮肤、哪些是你的私有功能。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 3 -->
+<!-- ============================================================ -->
+<div class="step">
+  <h3>启动项目 · 浏览器验证</h3>
+
+  <pre>./ctl.sh restart          # 或你的项目的启动命令</pre>
+
+  <p>浏览器打开页面，逐项检查：</p>
+  <ul>
+    <li>核心功能：皮肤选择后颜色正确渲染</li>
+    <li>边界情况：Light / Dark / System 三种主题模式下都正常</li>
+    <li>入口一致性：设置面板、slash 命令（如果有的话）都能选中皮肤</li>
+    <li>持久化：刷新页面后皮肤保持不丢失</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 4 -->
+<!-- ============================================================ -->
+<div class="step">
+  <h3>测试中发现问题 → 定位 → 修复 → 再测</h3>
+
+  <p>本次遇到的实际 bug：<strong>选 Hepburn 后页面渲染正确，但设置面板下拉框仍显示 "default"</strong>。</p>
+
+  <p><strong>定位方法：</strong></p>
+  <ol>
+    <li>打开 DevTools → Elements，确认 <code>&lt;html data-skin="hepburn"&gt;</code> 已生效 → 皮肤确实应用了</li>
+    <li>问题缩小到设置面板的 UI 控件本身没同步</li>
+    <li>在 <code>panels.js</code> 里搜索 <code>skinVal</code>，找到设置面板读取皮肤值的逻辑</li>
+    <li>发现它只读服务端返回值 <code>settings.skin</code>（默认 <code>'default'</code>），忽略了用户实际选择</li>
+  </ol>
+
+  <p><strong>修复：</strong>一行改动，让下拉框优先读 localStorage：</p>
+
+  <pre>// 改前 — 只读服务端
+const skinVal=(settings.skin||'default').toLowerCase();
+
+// 改后 — localStorage 优先
+const skinVal=(localStorage.getItem('hermes-skin')||settings.skin||'default').toLowerCase();</pre>
+
+  <p><strong>再测：</strong></p>
+  <pre>./ctl.sh restart    # 重启加载新代码
+# 浏览器 Cmd+Shift+R 硬刷新，确认下拉框正确显示 "Hepburn"</pre>
+
+  <div class="callout success">
+    <strong>通用排查思路</strong><br>
+    渲染正确但 UI 控件不对 → 不是数据流问题，是 UI 同步问题 → 搜索下拉框的 value 赋值代码 → 看它从哪个数据源取值 → 改数据源优先级。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 5 -->
+<!-- ============================================================ -->
+<div class="step">
+  <h3>预检 + 提交</h3>
+
+  <p><strong>分两段执行，中间有检查点：</strong></p>
+
+  <p>第一段 — 暂存 + 确认范围：</p>
+  <pre>git add static/style.css static/boot.js static/index.html static/panels.js
+git diff --cached --stat</pre>
+
+  输出示例：
+  <pre> static/boot.js    |  1 +
+ static/index.html |  2 +-
+ static/panels.js  |  2 +-
+ static/style.css  | 46 ++++++
+ 4 files changed, 49 insertions(+), 2 deletions(-)</pre>
+
+  <p>第二段 — 确认无误后提交：</p>
+  <pre>git commit -m "feat: add Hepburn skin (magenta-rose palette)
+
+Add Hepburn skin with full light/dark palette derived from the
+Hepburn TUI theme. Brand color #c6246a with pink-magenta accents.
+
+Also fix settings panel skin picker to prioritize localStorage
+over server defaults."</pre>
+
+  <div class="callout">
+    <strong>git diff --cached --stat</strong><br>
+    <code>--cached</code> 看的是暂存区（git add 之后的状态），不是工作区。<code>--stat</code> 只显示文件名和增删行数。<br><br>
+    <strong>为什么分两段</strong><br>
+    add 完先看一眼确认没有多带或少带文件，再 commit。多带文件（比如你的私有改动被误 add）→ 立刻 <code>git reset</code> 纠正。少带文件 → 补 <code>git add</code>。
+  </div>
+
+  <div class="callout warn">
+    <strong>Commit message 规范</strong><br>
+    第一行用 <code>feat:</code> 或 <code>fix:</code> 前缀，后面跟简短描述（英文 50 字以内）。空一行后写详细说明。大多数开源项目期望这样，方便自动生成 changelog。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 6 -->
+<!-- ============================================================ -->
+<div class="step">
+  <h3>Fork 仓库 + 推送 + 开 PR</h3>
+
+  <p><strong>6a · Fork 仓库</strong></p>
+  <p>浏览器打开上游仓库（如 <code>github.com/nesquena/hermes-webui</code>）→ 右上角 <strong>Fork</strong> → Create fork。<u>仓库名不改，描述不填</u>，全用默认。</p>
+
+  <p><strong>6b · 添加 remote + 推送</strong></p>
+  <pre>git remote add myfork https://github.com/你的用户名/hermes-webui.git
+git push myfork feat/my-feature</pre>
+
+  <div class="callout">
+    <strong>为什么叫 myfork 而不是 origin</strong><br>
+    <code>origin</code> 保持指向上游仓库（你没有 push 权限），<code>myfork</code> 指向你的 fork（你有完全权限）。以后 <code>git pull origin master</code> 同步上游更新，<code>git push myfork</code> 推送你的 PR，两不干扰。
+  </div>
+
+  <p><strong>6c · 开 PR</strong></p>
+  <p>推送成功后终端会输出快捷链接，浏览器打开。关键设置：</p>
+  <ul>
+    <li>Base repository → <strong>上游仓库</strong>（不是你的 fork）</li>
+    <li>Base branch → <code>master</code></li>
+    <li>Head repository → 你的 fork</li>
+    <li>Compare → <code>feat/my-feature</code></li>
+  </ul>
+
+  <p>PR 描述结构（按项目 CONTRIBUTING.md 要求）：</p>
+  <pre>## Thinking Path
+（从项目目标到你做的具体改动，几步推理链）
+
+## What Changed
+（列出改动的文件和内容）
+
+## Verification
+（你怎么验证的，附截图）
+
+## Model Used
+（用了什么 AI 辅助，或者写 None — human-authored）</pre>
+
+  <div class="callout danger">
+    <strong>如果 push 被拒绝</strong><br>
+    <code>remote: Permission to nesquena/hermes-webui.git denied</code><br>
+    说明你 push 到了 origin 而不是 myfork。重新执行 <code>git push myfork feat/my-feature</code> 即可。对 origin 的 push 被拒绝，没有副作用。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 7 -->
+<!-- ============================================================ -->
+<div class="step">
+  <h3>恢复本地完整定制</h3>
+
+  <pre>git checkout master
+git stash pop
+./ctl.sh restart</pre>
+
+  <div class="callout">
+    <strong>git stash pop</strong><br>
+    把第一步寄存的改动还原到工作区，同时删除 stash 条目。你的 shutdown 按钮、自定义图标等本地功能全部回归。
+  </div>
+
+  <div class="callout warn">
+    <strong>如果 stash pop 有冲突</strong><br>
+    <pre>CONFLICT (content): Merge conflict in static/boot.js</pre>
+    原因：上游 master 在你 stash 之后有了新提交，且新提交改了你 stash 里也改过的同一个文件的同一行。<br><br>
+    处理：手动编辑冲突文件，找到 <code>&lt;&lt;&lt;</code> / <code>===</code> / <code>&gt;&gt;&gt;</code> 标记的行，保留需要的版本，删除标记。然后 <code>git add 冲突文件</code>。如果不想手动处理，<code>git reset --hard</code> 放弃 pop（stash 不会被删除，可稍后再试）。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- APPENDIX: COMMAND REFERENCE -->
+<!-- ============================================================ -->
+<div class="toc" style="margin-top: 48px;">
+  <h2>指令速查表</h2>
+</div>
+
+<table style="width:100%; border-collapse:collapse; font-size:13px; line-height:1.8; margin-bottom: 40px;">
+  <thead>
+    <tr style="border-bottom:2px solid var(--border); text-align:left;">
+      <th style="padding:8px 0;">指令</th>
+      <th style="padding:8px 0;">作用</th>
+      <th style="padding:8px 0;">关键参数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git stash push</code></td>
+      <td>寄存所有未提交改动，清空工作区</td>
+      <td><code>-m</code> 加备注</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git stash pop</code></td>
+      <td>还原最近一次 stash 的改动并删除记录</td>
+      <td>无</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git checkout -b</code></td>
+      <td>创建并切换到新分支</td>
+      <td>分支名</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git add</code></td>
+      <td>将文件加入暂存区</td>
+      <td>文件名（多个空格分隔）</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git diff --cached --stat</code></td>
+      <td>预览暂存区改动摘要</td>
+      <td>无</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git commit -m</code></td>
+      <td>将暂存区提交为一个 commit</td>
+      <td>消息字符串</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git remote add</code></td>
+      <td>添加远程仓库别名</td>
+      <td>别名 + URL</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 0;"><code>git push</code></td>
+      <td>推送分支到远程仓库</td>
+      <td>远程别名 + 分支名</td>
+    </tr>
+    <tr>
+      <td style="padding:6px 0;"><code>git reset --hard</code></td>
+      <td>丢弃工作区和暂存区所有改动（危险）</td>
+      <td>无</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout" style="margin-bottom: 48px;">
+  <strong>适用项目类型</strong><br>
+  本指南适用于 "无构建步骤 + 纯前端文件在项目仓库中直接可改" 的开源项目。典型特征：没有 <code>webpack.config.js</code>、没有 <code>package.json</code> 里的 build 脚本、静态文件是明文 HTML/CSS/JS 而非打包产物。如果你的项目是 Vue/React SPA（有 build 步骤），皮肤/主题贡献需要在源码层修改后重新构建，流程不同。
+</div>
+
+</div>
+</body>
+</html>
